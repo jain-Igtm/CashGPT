@@ -1,82 +1,51 @@
-# Missed Revenue Recovery Audit — Customer Template
+# Missed Revenue Recovery Audit — Customer Report
 
-**Business:** [Name]  
-**Audit date:** [Date]  
-**Prepared for:** [Owner/manager]
+Prepare this report in an agreed private location. Do not commit client data to this public repository.
 
-## Decision summary
-**Primary finding:** [One-sentence description of the largest credible follow-up leak.]
+**Business:** [Public business name]  
+**Measurement window:** [Dates and comparable-month assumptions]  
+**Prepared on:** [Date]  
+**Decision:** [No change / lower-cost process change / gather evidence / scoped implementation]
 
-**90-day recoverable gross-profit range:**  
-- Low: $[ ]
-- Base: $[ ]
-- High: $[ ]
+## Evidence and baseline
+Describe the current callback, follow-up and booking process and the largest supported gap. Distinguish observations from assumptions; a website alone does not establish lost revenue.
 
-These are estimates based on the inputs and assumptions below, not guaranteed revenue.
-
-## Inputs
-| Input | Value | Source |
+| Aggregate input | Value | Source and confidence |
 |---|---:|---|
-| Monthly inbound inquiries | [ ] | Customer / estimate |
-| Unanswered rate | [ ]% | Customer / estimate |
-| Average booked-job revenue | $[ ] | Customer / estimate |
-| Gross margin | [ ]% | Customer / estimate |
-| Baseline booking rate | [ ]% | Customer / estimate |
-| Current callback delay | [ ] | Customer / observation |
+| Unique eligible inbound prospects per month | [ ] | [Measured / estimated] |
+| Initially unanswered share | [ ]% | [ ] |
+| Current booked-job share of that missed cohort | [ ]% | [ ] |
+| Average revenue per added job | $[ ] | [ ] |
+| Gross margin on added jobs | [ ]% | [ ] |
+| Additional monthly operating costs | $[ ] | [Items; exclude costs already in margin] |
 
-## Leakage model
-`missed inquiries = monthly inquiries × unanswered rate`
+Exclude duplicate calls, spam and existing-job inquiries. Current and proposed booking percentages must use the same eligible missed-prospect cohort.
 
-For each scenario, choose a conservative recoverable fraction and calculate:
+## Scenario comparison
+Run the canonical [audit model](../lib/audit-model.ts) using independent low/base/high assumptions. The 90-day period approximates three comparable months.
 
-`recoverable bookings = missed inquiries × recoverable fraction × baseline booking rate`
+| Scenario | Proposed booking rate | Additional jobs/month | Additional GP/90 days | Operating costs/90 days | Benefit after operating costs | Total setup ceiling |
+|---|---:|---:|---:|---:|---:|---:|
+| Low | [ ]% | [ ] | $[ ] | $[ ] | $[ ] | $[ ] |
+| Base | [ ]% | [ ] | $[ ] | $[ ] | $[ ] | $[ ] |
+| High | [ ]% | [ ] | $[ ] | $[ ] | $[ ] | $[ ] |
 
-`recoverable revenue = recoverable bookings × average job revenue`
+These are estimates, not guaranteed revenue. Preserve negative or zero additional outcomes. State the evidence required to trust each proposed rate and the capacity to deliver extra jobs.
 
-`recoverable gross profit = recoverable revenue × gross margin`
+## Recovery recommendation
+List only supported changes to capture, response, follow-up, ownership, booking and measurement. Include stop/opt-out conditions when messaging is relevant. Do not promise installation or an unverified integration as part of the diagnostic.
 
-| Scenario | Recoverable fraction | Monthly recoverable gross profit | 90-day recoverable gross profit |
-|---|---:|---:|---:|
-| Low | [ ]% | $[ ] | $[ ] |
-| Base | [ ]% | $[ ] | $[ ] |
-| High | [ ]% | $[ ] | $[ ] |
+**Why this decision follows from the low case:** [Evidence, costs and remaining uncertainty.]
 
-## Where demand is leaking
-1. **[Leak]** — [Evidence and consequence]
-2. **[Leak]** — [Evidence and consequence]
-3. **[Leak]** — [Evidence and consequence]
+Only quote an implementation when verified low-case additional 90-day GP covers at least five times **all** setup and 90-day operating costs. The unrounded setup ceiling must reach the $500 minimum.
 
-## Recovery workflow
-1. [Trigger: missed call / form submission / unaccepted estimate]
-2. [Immediate acknowledgment]
-3. [Timed follow-up]
-4. [Escalation or human callback]
-5. [Stop conditions / opt-out handling]
-6. [Measurement]
+**Total setup fee, including audit:** $[ ]  
+**Already-paid audit credit:** $149  
+**Remaining setup payment:** $[total minus 149]  
+**Additional 90-day operating costs:** $[ ]  
+**Modeled GP-to-total-cost ratio:** [ ]×  
 
-## Recommendation
-**Recommended action:** [Do nothing / process change / implementation]
+A quote, payment destination, start date and private handoff require explicit agreement. No payment is established by this report.
 
-**Why:** [Tie recommendation to conservative economics.]
-
-If implementation is justified, scope it here:
-- [Component]
-- [Component]
-- [Component]
-
-**Implementation price:** $[ ]  
-**Audit credit:** -$149  
-**Net implementation price:** $[ ]
-
-Only recommend implementation when conservative projected benefit reasonably supports the price. Do not present projections as guaranteed results.
-
-## 30-day measurement
-Track:
-- missed/unanswered inquiries
-- follow-ups sent
-- responses
-- recovered bookings
-- recovered booked revenue where attributable
-- gross profit where the customer can verify it
-
-At day 30, compare actual results with the audit assumptions and revise the workflow accordingly.
+## Measurement after any agreed change
+Compare actual eligible missed prospects and cohort booking rates with the baseline, using the same observation windows. Record additional bookings only where attribution is supportable; distinguish booked revenue from completed jobs and paid receipts. Reconcile operating costs and revise assumptions.

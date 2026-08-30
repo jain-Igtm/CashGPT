@@ -1,65 +1,8 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Missed Revenue Recovery Calculator</title>
-  <style>
-    :root { font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #171717; background: #f5f5f4; }
-    body { margin: 0; padding: 32px 16px; }
-    main { max-width: 780px; margin: 0 auto; background: white; border: 1px solid #e7e5e4; border-radius: 20px; padding: 28px; box-shadow: 0 20px 50px rgba(0,0,0,.06); }
-    h1 { margin: 0 0 8px; font-size: clamp(28px, 5vw, 42px); letter-spacing: -.03em; }
-    p { line-height: 1.55; color: #57534e; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 16px; margin: 24px 0; }
-    label { display:block; font-size: 13px; font-weight: 700; margin-bottom: 7px; }
-    input { width:100%; box-sizing:border-box; border:1px solid #d6d3d1; border-radius:10px; padding:11px 12px; font:inherit; }
-    .results { display:grid; grid-template-columns: repeat(3, 1fr); gap:12px; margin-top:24px; }
-    .card { border:1px solid #e7e5e4; border-radius:14px; padding:16px; background:#fafaf9; }
-    .card strong { display:block; font-size:24px; margin-top:6px; }
-    .small { font-size:12px; color:#78716c; }
-    .note { margin-top:22px; border-left:4px solid #a8a29e; padding:10px 14px; background:#fafaf9; }
-    @media (max-width: 620px) { .results { grid-template-columns:1fr; } }
-  </style>
-</head>
-<body>
-<main>
-  <h1>Missed Revenue Recovery Calculator</h1>
-  <p>Estimate the monthly gross revenue and gross profit that could be recoverable from missed or poorly followed-up inquiries. This is a scenario model, not a promise of results.</p>
-
-  <div class="grid">
-    <div><label for="missed">Missed / weakly followed-up leads per month</label><input id="missed" type="number" min="0" value="20"></div>
-    <div><label for="reachable">Reachable after follow-up (%)</label><input id="reachable" type="number" min="0" max="100" value="60"></div>
-    <div><label for="close">Booking rate among reached leads (%)</label><input id="close" type="number" min="0" max="100" value="30"></div>
-    <div><label for="ticket">Average booked job ($)</label><input id="ticket" type="number" min="0" value="800"></div>
-    <div><label for="margin">Gross margin (%)</label><input id="margin" type="number" min="0" max="100" value="45"></div>
-  </div>
-
-  <div class="results">
-    <div class="card"><span class="small">Low case (65% of base)</span><strong id="low">$0</strong><span class="small">recoverable gross profit / month</span></div>
-    <div class="card"><span class="small">Base case</span><strong id="base">$0</strong><span class="small">recoverable gross profit / month</span></div>
-    <div class="card"><span class="small">High case (135% of base)</span><strong id="high">$0</strong><span class="small">recoverable gross profit / month</span></div>
-  </div>
-
-  <div class="note"><strong>Base-case gross revenue: <span id="revenue">$0</span></strong><br><span class="small">Formula: missed opportunities × reachable fraction × booking rate × average ticket. Gross profit then applies the entered margin.</span></div>
-</main>
-<script>
-  const ids = ['missed','reachable','close','ticket','margin'];
-  const money = n => new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(Number.isFinite(n)?n:0);
-  function calc(){
-    const missed = +document.getElementById('missed').value || 0;
-    const reachable = (+document.getElementById('reachable').value || 0)/100;
-    const close = (+document.getElementById('close').value || 0)/100;
-    const ticket = +document.getElementById('ticket').value || 0;
-    const margin = (+document.getElementById('margin').value || 0)/100;
-    const revenue = missed * reachable * close * ticket;
-    const profit = revenue * margin;
-    document.getElementById('revenue').textContent = money(revenue);
-    document.getElementById('low').textContent = money(profit*.65);
-    document.getElementById('base').textContent = money(profit);
-    document.getElementById('high').textContent = money(profit*1.35);
-  }
-  ids.forEach(id => document.getElementById(id).addEventListener('input', calc));
-  calc();
-</script>
-</body>
-</html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CashGPT — canonical audit calculator</title>
+<style>body{font:17px/1.7 system-ui;max-width:720px;margin:60px auto;padding:24px;background:#0b1019;color:#eee}a{color:#e2bf7b}h1{font:36px Georgia,serif}</style></head>
+<body><h1>Use the corrected audit calculator.</h1>
+<p>This older standalone calculator is retired. The canonical application subtracts existing callbacks, includes operating costs, validates all inputs and preserves negative scenarios.</p>
+<p><a href="/audit">Open CashGPT's audit page</a>. If you opened this file locally, run the CashGPT application and visit /audit instead.</p>
+<p><a href="https://github.com/jain-Igtm/CashGPT/blob/main/ventures/lead-recovery-sprint.md">Read the model and offer</a> or <a href="https://github.com/jain-Igtm/CashGPT/issues/new?template=audit-inquiry.yml">review the public inquiry form</a>. An inquiry is not an order, booking or payment.</p></body></html>

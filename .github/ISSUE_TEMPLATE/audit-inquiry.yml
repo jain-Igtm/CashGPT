@@ -1,0 +1,62 @@
+name: Audit inquiry
+description: Ask whether the $149 missed-revenue audit fits your plumbing or HVAC business.
+title: "[Audit inquiry] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Public inquiry — not a paid order
+        This issue and every reply are public. A GitHub account is required.
+        Share public business information only. Do not include personal email/phone numbers,
+        caller names, call logs, recordings, customer records, credentials, financial records or payment details.
+        This form does not book an audit or collect payment. Scope, delivery start and a verified
+        receiving account must be agreed before paid work begins. The diagnostic is $149,
+        credited toward an agreed implementation; installation and subscriptions are not included.
+  - type: input
+    id: website
+    attributes:
+      label: Public business website
+      description: Domain only, such as example.com. No private links, credentials, query strings or account pages.
+      placeholder: example.com
+    validations:
+      required: true
+  - type: dropdown
+    id: business
+    attributes:
+      label: Business type
+      options:
+        - Independent plumbing business
+        - Independent HVAC business
+        - Independent plumbing and HVAC business
+    validations:
+      required: true
+  - type: dropdown
+    id: workflow
+    attributes:
+      label: Process you would like reviewed
+      options:
+        - Initially unanswered calls
+        - After-hours inquiries
+        - Website inquiry follow-up
+        - Estimate follow-up
+        - Unsure — requesting a fit check
+    validations:
+      required: true
+  - type: dropdown
+    id: aggregates
+    attributes:
+      label: Could you provide non-identifying aggregate counts and rates later?
+      options:
+        - Yes, after scope and a private handoff are agreed
+        - Unsure — need to discuss what is available
+    validations:
+      required: true
+  - type: checkboxes
+    id: acknowledgement
+    attributes:
+      label: Before submitting
+      options:
+        - label: I understand this inquiry and replies are public and have included no private customer, personal, financial or login information.
+          required: true
+        - label: I am asking about fit only. No payment, accepted scope or delivery booking is established by this inquiry.
+          required: true

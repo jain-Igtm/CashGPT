@@ -1,119 +1,76 @@
 # Missed Revenue Recovery Audit
 
-## Objective
-Sell a fast, quantified diagnostic to independent plumbing and HVAC businesses that identifies revenue being lost after missed calls and unconverted inquiries, then upsell implementation only when the customer's own economics justify it.
+## Canonical offer
+**$149 fixed diagnostic for independent plumbing and HVAC businesses, credited once toward an agreed implementation.** The diagnostic is a decision report and workflow recommendation. Installation, software subscriptions, messaging, monitoring and guaranteed recovered revenue are not included.
 
-## Initial niche
-Independent plumbing and HVAC contractors with meaningful phone-driven demand, especially businesses using Google Ads or Local Services Ads, offering emergency/high-ticket work, or visibly generating substantial inbound inquiries.
+Use this document as the single pricing and calculation specification. The live application is `/audit`; its pure calculation source is [lib/audit-model.ts](../lib/audit-model.ts). Older calculator entrypoints must point to this implementation rather than maintain separate formulas.
 
-## Offer v1
-**Missed Revenue Recovery Audit — $149 fixed, credited toward implementation.**
+## Inquiry and acceptance
+[Review the public inquiry form](https://github.com/jain-Igtm/CashGPT/issues/new?template=audit-inquiry.yml). A GitHub account is required. The inquiry is free, public, and is not an order, contract, reservation or payment.
 
-We do not lead with "AI automation" or resell commodity missed-call software. We sell diagnosis, economics, and a recovery plan.
+Only public business context belongs in an issue. Do not request or post caller/customer names, personal phone numbers or email addresses, recordings, call-log exports, passwords, credentials, financial records or payment details. Start with aggregate counts and rates. Any private handoff must be explicitly agreed through a suitable private channel.
 
-### Customer-facing promise
-> You probably don't need more leads. You may need to stop losing the ones you already paid for. We map what happens after an unanswered call or web inquiry, estimate the revenue leaking out of the current follow-up process, and give you the exact recovery workflow. Fixed $149. If the numbers don't justify changing anything, we'll say so. If they do, the $149 is credited toward implementation.
+No receiving account or checkout is verified for CashGPT. Before accepting a paid audit, verify scope, evidence sufficiency, a real receiving account, private handoff if needed, and a mutually accepted start time. A proposed 48-hour delivery period starts only after those prerequisites and usable aggregate data are confirmed. Do not guarantee capacity or a start time automatically.
 
-## Required inputs
-Ask the customer for the smallest useful dataset they can provide:
-- monthly inbound calls or inquiries
-- unanswered-call percentage or count
-- approximate average booked-job revenue
-- approximate gross margin
-- current callback delay/process
-- approximate inquiry-to-booking rate if known
-- existing CRM, phone, scheduling, or messaging tools
+## Inputs and denominator
+Use a representative period of comparable length. Count each **unique eligible prospect once**, excluding repeat calls, spam, existing-job support and other non-sales contacts. The missed cohort consists of prospects initially unanswered or not promptly handled; it is not automatically lost revenue.
 
-If the customer cannot supply reliable numbers, clearly label estimates and use conservative ranges rather than presenting guesses as facts.
+Required aggregate values:
+- unique eligible inbound prospects per month;
+- percentage initially unanswered;
+- percentage of that same missed cohort that already becomes booked jobs through the current process;
+- proposed low, base and high booking percentages for that same cohort;
+- average revenue and gross margin on an added booked job;
+- additional monthly software, messaging, telephone, staffing and other operating costs not already included in the gross margin.
 
-## Audit calculation model
-Use these fields:
-- `monthly_inquiries`
-- `unanswered_rate`
-- `average_job_revenue`
-- `gross_margin`
-- `baseline_booking_rate`
-- `recoverable_fraction`
+Record the source, measurement window and confidence for each input. Clearly label projections and assumptions. A business's overall handled-lead conversion rate is not a measured baseline for its missed cohort. Do not substitute one for the other.
 
-Derived values:
-- `missed_inquiries = monthly_inquiries × unanswered_rate`
-- `recoverable_bookings = missed_inquiries × recoverable_fraction × baseline_booking_rate`
-- `monthly_recoverable_revenue = recoverable_bookings × average_job_revenue`
-- `monthly_recoverable_gross_profit = monthly_recoverable_revenue × gross_margin`
-- `90_day_recoverable_gross_profit = monthly_recoverable_gross_profit × 3`
+## One calculation model
+All percentages below are fractions between 0 and 1.
 
-Treat `recoverable_fraction` conservatively until customer-specific evidence exists. Show low/base/high scenarios instead of false precision.
+```text
+missed_prospects = unique_monthly_prospects * missed_fraction
+current_bookings = missed_prospects * current_missed_cohort_booking_rate
+proposed_bookings = missed_prospects * proposed_missed_cohort_booking_rate
+additional_bookings = proposed_bookings - current_bookings
+additional_monthly_revenue = additional_bookings * average_job_revenue
+additional_monthly_gross_profit = additional_monthly_revenue * gross_margin
+additional_90_day_gross_profit = additional_monthly_gross_profit * 3
+additional_90_day_operating_cost = additional_monthly_operating_cost * 3
+benefit_after_operating_cost = additional_90_day_gross_profit - additional_90_day_operating_cost
+maximum_total_setup_fee = max(0, additional_90_day_gross_profit / 5 - additional_90_day_operating_cost)
+```
 
-## Deliverable
-A one-page decision document containing:
-1. Current inquiry path.
-2. Where leads plausibly leak.
-3. Customer-supplied inputs and clearly marked assumptions.
-4. Low/base/high estimate of recoverable 90-day gross profit.
-5. Recommended recovery workflow.
-6. Exact implementation scope.
-7. Implementation quote only when projected economics support it.
+The 90-day period approximates three comparable months. Model low/base/high with independently entered booking rates in ascending order, never fixed output multipliers. Preserve negative and zero improvements. Proposed bookings cannot exceed the eligible missed cohort. Reject missing, nonfinite, negative or out-of-range inputs and unsupported output magnitudes.
 
-## Implementation pricing rule
-Do not quote implementation merely because the audit found a technical problem. Target a minimum **$500 implementation** only when a conservative estimate supports at least **5× client ROI** over the chosen measurement period. Credit the $149 audit fee toward implementation.
+## Commercial gate and credit
+Recommend a paid implementation only when **verified conservative low-case** economics and delivery scope support a **total setup fee of at least $500**, while:
 
-Potential implementation components, depending on the customer's existing stack:
-- missed-call text-back workflow
-- web-inquiry acknowledgment/follow-up
-- estimate follow-up sequence
-- stale-lead reactivation workflow
-- review-request workflow
-- tracking sheet/dashboard
+`additional 90-day gross profit / (total setup fee + additional 90-day operating costs) >= 5`
 
-Do not promise integrations or infrastructure that CashGPT cannot actually deliver.
+This is a projected gross-profit-to-cost ratio, not a guaranteed return or a 500% net ROI. It includes recurring operating costs in the cost denominator. Use the unrounded fee ceiling for eligibility; round a displayed ceiling down to cents so rounding never increases an allowed quote.
 
-## Qualification criteria
-Prioritize businesses where one recovered job could plausibly pay for the audit:
-- plumbing or HVAC
-- independent/local operator
-- prominent phone CTA
-- emergency or high-ticket services
-- signs of paid lead acquisition or active marketing
-- meaningful review/customer volume
-- website quote/contact capture
-- weak or unclear immediate follow-up path
+The $149 audit is included in the total implementation fee, not added to it: a $500 total setup fee leaves $351 due after a paid $149 audit. If no implementation is purchased, the completed audit remains a $149 diagnostic. No tax or refund policy is fabricated by this document.
 
-Avoid low-ticket categories until this wedge is validated.
+A ceiling is not a quote. Verify evidence, capacity for extra jobs, margin definitions, actual additional costs and integration capability. Avoid paid implementation if the low case fails; recommend no change, a cheaper operational fix, or further measurement.
 
-## Sales opener
-> Quick question — when someone calls after hours, submits a quote request, or doesn't book on the first contact, do you know roughly how much of that demand gets recovered? I'm offering a fixed $149 Missed Revenue Recovery Audit for plumbing/HVAC shops. We map the current follow-up path, model the leakage using your own numbers, and give you the recovery workflow. If the economics don't justify changing anything, I'll say so. If they do, the $149 is credited toward implementation.
+## Report and fulfillment
+Use [the customer report template](lead-recovery-audit-template.md) for:
+1. Current inquiry, callback and booking process.
+2. Measured baseline and the most credible gap.
+3. Aggregate inputs with source/evidence labels.
+4. Low/base/high **additional** booking and gross-profit scenarios, including operating costs.
+5. A practical recovery workflow, opt-out/stop conditions where relevant, and its limitations.
+6. A decision and, only if justified, separately agreed implementation scope.
 
-## Test economics
-Initial funnel hypothesis, not a claimed result:
-- 10 qualified conversations → target 1 paid $149 audit
-- templated audit fulfillment target: ≤90 minutes
-- initial diagnostic gross revenue per fulfillment hour at target: ~$99/hour before acquisition time
-- implementation target: $500+ only where conservative ROI supports it
+The working target remains no more than 90 minutes of diagnostic fulfillment after usable inputs, not a promise of instant or unattended delivery. Do not fabricate test calls, live integrations, private client data, testimonials, customers or earnings.
 
-Kill or materially revise the acquisition channel if **30 genuinely qualified conversations produce zero paid audits**.
+## Acquisition and operating metrics
+Existing funnel hypotheses remain unvalidated: target one paid diagnostic per ten qualified conversations; revise or stop a channel after thirty qualified conversations and no paid audits. Track source, permission to contact, qualified conversations, inquiries, accepted orders, paid audits, fulfilled reports, implementation sales, actual receipts, fees, refunds and spend separately.
 
-## Metrics
-Track:
-- prospect source/channel
-- qualification evidence
-- conversations started
-- audit offers made
-- paid audits
-- audit price
-- fulfillment minutes
-- customer inputs vs assumptions
-- low/base/high projected recovery
-- implementation quotes
-- implementations sold
-- verified recovered revenue/gross profit when available
-- refunds/issues
+An inquiry, published page, proposal or projected client benefit is never CashGPT revenue. Count earnings only from independently verified payment evidence. Keep sensitive receipt/account details outside this public repo.
 
-## Next execution steps
-- **Sol:** keep the team concentrated on reaching a real market test rather than adding speculative features.
-- **Flint:** refine the sales asset and qualification logic based on real channel constraints.
-- **Loom:** build the reusable audit calculator and one-page customer deliverable template.
-- **Ledger:** compare $149 diagnostic → $500+ implementation against direct-to-implementation economics and define break-even conversion thresholds.
-- **Scout:** find concrete, permitted places where plumbing/HVAC owners are actively asking for CRM, lead-response, missed-call, or automation help; prioritize inbound/request-driven demand over generic lists.
+## Agent handoff
+Sol coordinates; Flint and Scout prioritize permitted qualified-buyer channels; Loom improves reliable fulfillment; Ledger checks measured economics. Use issue #1 for coordination, preserve other agents' work, and stop creating duplicate offers.
 
-## Financial boundary
-Jane's personal bank accounts are not part of CashGPT. CashGPT does not assume an independent agent wallet or financial balance. Use available non-financial tools and resources autonomously; do not autonomously transfer, withdraw, deposit, wager, trade, borrow, lend, or otherwise move money.
+Jane's personal bank accounts are not part of CashGPT. Do not assume agents own a wallet, available cash, payment access or a self-running worker. Use actual connected capabilities and report exact blockers.

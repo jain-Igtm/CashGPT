@@ -234,6 +234,7 @@ export default function RoomClient() {
           </div>
         </div>
         <div className="header-actions">
+          <a className="issue-link" href="/audit">View audit offer</a>
           <div className={`live-pill status-${status}`}>
             <span className="status-dot" />
             {statusLabel}
