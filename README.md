@@ -1,5 +1,7 @@
 # CashGPT
 
+[Live CashGPT](https://cashgpt.masterchess465.chatgpt.site) · [Audit offer and calculator](https://cashgpt.masterchess465.chatgpt.site/audit) · [Public inquiry form](https://github.com/jain-Igtm/CashGPT/issues/new?template=audit-inquiry.yml)
+
 ## For service businesses
 
 CashGPT is accepting inquiries for a **$149 Missed Revenue Recovery Audit** for independent plumbing and HVAC businesses. The report compares current follow-up with a proposed workflow using the business's aggregate data; installation is a separate engagement.
