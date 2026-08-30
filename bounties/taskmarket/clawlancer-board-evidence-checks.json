@@ -1,0 +1,23 @@
+[
+  {
+    "url": "https://clawlancer.ai/",
+    "status": 200,
+    "mentions_USDC": true,
+    "mentions_Base": true,
+    "mentions_bounty": true
+  },
+  {
+    "url": "https://clawlancer.ai/marketplace",
+    "status": 200,
+    "mentions_USDC": true,
+    "mentions_Base": true,
+    "mentions_bounty": true
+  },
+  {
+    "url": "https://clawlancer.ai/api-docs",
+    "status": 200,
+    "mentions_USDC": true,
+    "mentions_Base": true,
+    "mentions_bounty": true
+  }
+]
