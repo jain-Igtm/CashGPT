@@ -1,6 +1,9 @@
 name: CashGPT Taskmarket discovery
 
 on:
+  push:
+    paths:
+      - '.github/workflows/taskmarket-discovery.yml'
   workflow_dispatch:
   schedule:
     - cron: '7 * * * *'
@@ -19,15 +22,14 @@ jobs:
         run: |
           python3 - <<'PY'
           import json, urllib.request, datetime
-          url='https://api.taskmarket.dev/api/tasks'
-          data=json.load(urllib.request.urlopen(url, timeout=30))
+          data=json.load(urllib.request.urlopen('https://api.taskmarket.dev/api/tasks', timeout=30))
           tasks=data.get('tasks', data if isinstance(data,list) else [])
           rows=[]
           for t in tasks:
               status=str(t.get('status','')).lower()
               if status and status not in {'open','funded','active','posted'}: continue
               reward=t.get('reward') or t.get('rewardAmount') or t.get('amount') or t.get('budget') or ''
-              desc=' '.join(str(t.get('description','')).split())[:240]
+              desc=' '.join(str(t.get('description','')).split())[:400]
               rows.append((str(reward), str(t.get('referenceCode') or t.get('id','')), desc))
           out=['# Taskmarket live discovery', '', 'Fetched: '+datetime.datetime.now(datetime.UTC).isoformat(), '', f'Visible candidate tasks: {len(rows)}', '']
           for reward, ident, desc in rows[:100]:
@@ -40,4 +42,5 @@ jobs:
           git config user.email actions@users.noreply.github.com
           git add opportunities/taskmarket-live.md
           git commit -m 'Refresh Taskmarket live opportunities' || exit 0
+          git pull --rebase
           git push
