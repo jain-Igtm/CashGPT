@@ -4,7 +4,29 @@ Priority: participant-paid research first. Product sales are a fallback.
 
 All eligibility answers must be truthful. Do not fabricate demographics, employment, health status, experience, or device access. `Effective rate` is simple incentive / stated session time and does not include screening/application time.
 
-## Tier A — screen first
+## Mandatory agent-completable cash track
+
+The current Scout instruction only counts a run as satisfied when an agent itself **submits** a legitimate paid survey/research task whose rules permit AI/delegated participation and whose payout is real money or cash-equivalent. Gift cards, coupons, samples, sweepstakes, and non-cash points do not satisfy that rule.
+
+### Strongest verified platform: HiredByAgents
+
+- Worker page: https://hiredbyagents.com/workers
+- API docs: https://hiredbyagents.com/docs
+- Platform explicitly permits AI agents to claim tasks marked `preferred_worker: agent` or `any`.
+- Agent API supports listing open tasks, claiming one, and submitting completed work.
+- Budgets are denominated in USD; platform advertises PayPal, USDC, and Stripe payout paths, with USDC specifically supported for agents.
+- **Current blocker:** every task-list/claim/submit endpoint requires an `x-agent-key` generated from a registered HiredByAgents account. No HiredByAgents account/API key is exposed to the current connected tools. The public web/research tool can read pages but cannot authenticate, claim, or submit tasks. Therefore no paid task was submitted in the current Scout pass.
+- Status: **MANDATORY COMPLETION REQUIREMENT UNSATISFIED** until an authorized HiredByAgents agent account/API key is connected or another platform exposes an authenticated agent-permitted submission tool.
+
+### Other agent marketplaces checked
+
+- Human4Hire / HumanPing / requesthuman are primarily agent-to-human dispatch systems, not current sources of agent-completable paid survey tasks.
+- WURK API offers agents the ability to *purchase* human opinions/polls, which is the opposite side of the transaction and does not create income for CashGPT.
+- Conventional survey panels (PaidViewpoint, Respondent, User Interviews, Prolific, etc.) are human-participant systems; their screeners or terms require real participant identity/opinion and therefore must not be completed by Scout as Jane.
+
+## Human-participant queue (does not satisfy agent-completion rule)
+
+These may still be useful for Jane personally, but they are tracked separately because many pay by gift card and/or require Jane's own subjective/personal answers.
 
 | Priority | Opportunity | Incentive | Stated time | Effective rate | Timing | Eligibility / notes | Payout | Apply |
 |---|---|---:|---:|---:|---|---|---|---|
@@ -17,30 +39,21 @@ All eligibility answers must be truthful. Do not fabricate demographics, employm
 | 7 | Request for Technology Product Feedback | $100 | 70 min | ~$85.71/hr | Sep 1 or 2 | Online technology feedback; MacOS or Windows computer + webcam; recorded. Screener determines fit. | Choice of digital gift cards | https://www.userinterviews.com/projects/NfGxdr634g/apply |
 | 8 | Focus groups about current events | $140 | 150 min | $56/hr | Aug 31–Sep 10 | Members of the public; online Zoom; laptop/desktop + webcam required; many sessions/times. | Virtual gift card incl. Visa/Amazon/etc. | https://www.userinterviews.com/projects/rQF3tGNmQg/apply |
 
-## Tier B — larger / longer-term
+## Cash-paying human research worth monitoring
 
-| Opportunity | Incentive | Commitment | Timing | Notes | Apply |
-|---|---:|---|---|---|---|
-| 3-Month Panel Research Opportunity | Up to $250 + possible extra interview/focus-group pay | Initial onboarding + periodic activities for 3 months | Starts Sep | $50 onboarding, $50/month for full participation, $50 completion bonus; extra paid sessions possible. | https://www.userinterviews.com/projects/SYk4Ns2NGw/apply |
-| Get Paid to Help us Test a Home Product | $150 + $25 completion bonus | 2-week in-home product test; text/video/photo feedback | Starts first week Sep | Online recruitment; exact active task burden not stated publicly, so do not calculate hourly rate yet. | https://www.userinterviews.com/projects/EM06opr9aA/apply |
-
-## Platform baseline
-
-- Prolific is worth joining as a continuous small-survey feed. Current participant page says new tasks are published frequently, payouts are real money, and the platform's current minimum study rate is $8/hour with $12/hour recommended. New participants may enter a waitlist before verification.
-- Participant page: https://www.prolific.com/participants
+- Prolific participant page: https://www.prolific.com/participants — real-money participant payouts; studies require the actual participant and therefore Scout cannot answer them as Jane.
+- uTest AI Agent Capabilities Study [USA]: https://www.utest.com/projects/AI-Agent-UX-USA — advertised $180 for about 5.5–6 hours, requiring a U.S. tester with specified devices and personal evaluation of AI agents. Human-only for our purposes.
+- Respondent research marketplace: https://www.respondent.io/research-projects — paid research, including AI-moderated interviews, but profile/screener participation is tied to the real participant.
 
 ## Execution order
 
-1. Screen Tier A #1 immediately.
-2. Screen the $250–$350 financial study before September sessions fill.
-3. Screen AI-agent studies #3–#5 next because current CashGPT/AI-agent usage may be directly relevant, but answer only from the participant's actual experience.
-4. Apply to Sep 1 payment-options study before its session fills.
-5. Apply to current-events group as a broad fallback.
-6. Join / verify Prolific for recurring short studies.
-7. Keep the 3-month panel and home-product study as secondary applications.
+1. If a HiredByAgents API key becomes connected, immediately list `preferred_worker: agent|any` tasks, filter for research/survey/analysis tasks with USD budgets, claim the best legitimate task, complete it, submit it, and record the promised payout and status.
+2. Until then, continue searching for another agent-permitted cash-paid research platform with a callable authenticated submission route.
+3. Keep human-only opportunities available for Jane, but never count them as an agent completion and never fabricate screener answers.
 
 ## Status
 
-- Verified revenue from these opportunities: $0 as of update.
-- Applications submitted by agent: 0. Screeners require participant identity/eligibility answers and must be completed truthfully by Jane unless the platform explicitly permits delegated answers.
-- Next operational blocker: participant must open the highest-ranked screener and provide their own truthful responses.
+- Verified revenue from research opportunities: $0 as of this update.
+- Paid research tasks submitted by Scout: **0**.
+- Mandatory agent-completion requirement: **UNSATISFIED**.
+- Exact missing capability: an authenticated submission channel for a platform that both permits AI/delegated participation and pays guaranteed cash/cash-equivalent for the completed research task.
