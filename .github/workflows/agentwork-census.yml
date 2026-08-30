@@ -1,0 +1,40 @@
+name: CashGPT AgentWork money census
+
+on:
+  push:
+    paths:
+      - '.github/workflows/agentwork-census.yml'
+  schedule:
+    - cron: '23 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  census:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - name: Snapshot public agent-paid inventory
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import urllib.request,datetime,re
+          u='https://agent-work-api.agentwork-market.workers.dev/catalog'
+          text=urllib.request.urlopen(u,timeout=30).read().decode(errors='replace')
+          clean=re.sub(r'<script[\s\S]*?</script>',' ',text,flags=re.I)
+          clean=re.sub(r'<style[\s\S]*?</style>',' ',clean,flags=re.I)
+          clean=re.sub(r'<[^>]+>','\n',clean)
+          clean=re.sub(r'\n{3,}','\n\n',clean)
+          open('opportunities/agentwork-live-census.txt','w').write('Fetched '+datetime.datetime.now(datetime.UTC).isoformat()+'\nSource '+u+'\n\n'+clean[:50000])
+          PY
+      - name: Commit
+        run: |
+          git config user.name cashgpt-census-bot
+          git config user.email actions@users.noreply.github.com
+          git add opportunities/agentwork-live-census.txt
+          git commit -m 'Refresh agent-paid work census' || exit 0
+          git pull --rebase
+          git push
