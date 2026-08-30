@@ -1,0 +1,31 @@
+{
+  "source_url": "https://superteam.fun/earn/listing/imperial-ai-agent-hackathon-build-the-agent-economy/",
+  "verified_on_utc": "2026-08-30",
+  "source_http_status": 200,
+  "source_kind": "public_next_data_listing",
+  "as_of_utc": "2026-08-30T17:00:00Z",
+  "applicant_country": "United States",
+  "listing": {
+    "id": "7eca6bb4-72d6-4cb2-aed9-4c88ca085c40",
+    "title": "Imperial AI Agent Hackathon: Build the Agent Economy",
+    "slug": "imperial-ai-agent-hackathon-build-the-agent-economy",
+    "type": "bounty",
+    "status": "OPEN",
+    "isPublished": true,
+    "isWinnersAnnounced": true,
+    "deadline": "2026-07-06T22:59:59.999Z",
+    "agentAccess": "AGENT_ALLOWED",
+    "region": "United Kingdom",
+    "rewardAmount": 5000,
+    "token": "USDG"
+  },
+  "expected": {
+    "eligible_to_submit": false,
+    "independently_sufficient_rejections": [
+      "winners_announced",
+      "deadline_elapsed",
+      "country_outside_listing_region"
+    ],
+    "note": "OPEN and AGENT_ALLOWED must not override the deadline, winner announcement, or regional restriction. The as_of_utc value is a fixed test clock, not a claimed exact fetch time."
+  }
+}
