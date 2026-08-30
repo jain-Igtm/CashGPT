@@ -9,12 +9,13 @@ All eligibility answers must be truthful. Do not fabricate demographics, employm
 | Priority | Opportunity | Incentive | Stated time | Effective rate | Timing | Eligibility / notes | Payout | Apply |
 |---|---|---:|---:|---:|---|---|---|---|
 | 1 | Give Feedback, Get $100 | $100 | 25 min | ~$240/hr | Live listing | Online self-paced AI-moderated interview; camera required; researcher describes business-needs feedback. Screener determines fit. | Choice of digital gift cards | https://www.userinterviews.com/projects/ONjYEghqIg/apply |
-| 2 | When AI Agents Go Off-Script | $150 | 60 min | $150/hr | Interviews through Sep 4 | People with real experience working with AI agents, diagnosing unexpected behavior/performance and related workflows. Remote Webex. | Choice of digital gift cards | https://www.userinterviews.com/projects/rkvpxeSR-A/apply |
-| 3 | New to AI? | $100 | 60 min | $100/hr | Live listing | Broad range of AI experience explicitly welcome. Online; computer + webcam required. | Visa e-gift card | https://www.userinterviews.com/projects/heiS_6gQXg/apply |
-| 4 | Inside AI Workflows | $100 | 45–60 min | ~$100–$133/hr | Live listing | People who work with AI prompts/configuration, evaluation/testing, or agentic/multi-step workflows; may screen-share non-sensitive workflow/tooling. | Choice of digital gift cards | https://www.userinterviews.com/projects/cQhH_19suA/apply |
-| 5 | Share opinions about payment options | $150 | 105 min | ~$85.71/hr | Sep 1 | Online focus group on payment apps/platforms; computer + webcam required; recorded. Screener determines fit. | Choice of digital gift cards | https://www.userinterviews.com/projects/R3l0-Caqpg/apply |
-| 6 | Request for Technology Product Feedback | $100 | 70 min | ~$85.71/hr | Sep 1 or 2 | Online technology feedback; MacOS or Windows computer + webcam; recorded. Screener determines fit. | Choice of digital gift cards | https://www.userinterviews.com/projects/NfGxdr634g/apply |
-| 7 | Focus groups about current events | $140 | 150 min | $56/hr | Aug 31–Sep 10 | Members of the public; online Zoom; laptop/desktop + webcam required; many sessions/times. | Virtual gift card incl. Visa/Amazon/etc. | https://www.userinterviews.com/projects/rQF3tGNmQg/apply |
+| 2 | Financial Study | $250–$350 | ~90 min | ~$167–$233/hr | Sep 2–10 | Adults 18+; online financial research; exact group/compensation varies by qualification. | Tremendous gift card | https://www.userinterviews.com/projects/bxzIsslTkg/apply |
+| 3 | When AI Agents Go Off-Script | $150 | 60 min | $150/hr | Interviews through Sep 4 | People with real experience working with AI agents, diagnosing unexpected behavior/performance and related workflows. Remote Webex. | Choice of digital gift cards | https://www.userinterviews.com/projects/rkvpxeSR-A/apply |
+| 4 | New to AI? | $100 | 60 min | $100/hr | Live listing | Broad range of AI experience explicitly welcome. Online; computer + webcam required. | Visa e-gift card | https://www.userinterviews.com/projects/heiS_6gQXg/apply |
+| 5 | Inside AI Workflows | $100 | 45–60 min | ~$100–$133/hr | Live listing | People who work with AI prompts/configuration, evaluation/testing, or agentic/multi-step workflows; may screen-share non-sensitive workflow/tooling. | Choice of digital gift cards | https://www.userinterviews.com/projects/cQhH_19suA/apply |
+| 6 | Share opinions about payment options | $150 | 105 min | ~$85.71/hr | Sep 1 | Online focus group on payment apps/platforms; computer + webcam required; recorded. Screener determines fit. | Choice of digital gift cards | https://www.userinterviews.com/projects/R3l0-Caqpg/apply |
+| 7 | Request for Technology Product Feedback | $100 | 70 min | ~$85.71/hr | Sep 1 or 2 | Online technology feedback; MacOS or Windows computer + webcam; recorded. Screener determines fit. | Choice of digital gift cards | https://www.userinterviews.com/projects/NfGxdr634g/apply |
+| 8 | Focus groups about current events | $140 | 150 min | $56/hr | Aug 31–Sep 10 | Members of the public; online Zoom; laptop/desktop + webcam required; many sessions/times. | Virtual gift card incl. Visa/Amazon/etc. | https://www.userinterviews.com/projects/rQF3tGNmQg/apply |
 
 ## Tier B — larger / longer-term
 
@@ -31,14 +32,15 @@ All eligibility answers must be truthful. Do not fabricate demographics, employm
 ## Execution order
 
 1. Screen Tier A #1 immediately.
-2. Screen AI-agent studies #2–#4 next because current CashGPT/AI-agent usage may be directly relevant, but answer only from the participant's actual experience.
-3. Apply to Sep 1 payment-options study before its session fills.
-4. Apply to current-events group as a broad fallback.
-5. Join / verify Prolific for recurring short studies.
-6. Keep the 3-month panel and home-product study as secondary applications.
+2. Screen the $250–$350 financial study before September sessions fill.
+3. Screen AI-agent studies #3–#5 next because current CashGPT/AI-agent usage may be directly relevant, but answer only from the participant's actual experience.
+4. Apply to Sep 1 payment-options study before its session fills.
+5. Apply to current-events group as a broad fallback.
+6. Join / verify Prolific for recurring short studies.
+7. Keep the 3-month panel and home-product study as secondary applications.
 
 ## Status
 
-- Verified revenue from these opportunities: $0 as of creation.
+- Verified revenue from these opportunities: $0 as of update.
 - Applications submitted by agent: 0. Screeners require participant identity/eligibility answers and must be completed truthfully by Jane unless the platform explicitly permits delegated answers.
 - Next operational blocker: participant must open the highest-ranked screener and provide their own truthful responses.
