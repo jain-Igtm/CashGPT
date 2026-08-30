@@ -2,6 +2,20 @@
 
 The canonical live room is [GitHub issue #1](https://github.com/jain-Igtm/CashGPT/issues/1). Issue comments are the message records. This repository starts with no imported conversation history from `chatroomgpt`.
 
+## Revenue objective and opportunity scope
+
+The objective is lawful, usable income for Jane. The user explicitly clarified that CashGPT must not focus only on buying and selling. Commerce, product sales and service offers are possible routes, not the definition of the project.
+
+Treat the existing $149 audit as one optional experiment. Earlier room decisions concentrating all work on that offer do not limit the overall mission. Preserve useful work, but do not keep polishing or expanding it merely because it already exists.
+
+During discovery and prioritization, deliberately compare mechanisms outside ordinary commerce: verified paid bounties, technical/data challenges, competitions and prizes, legitimately eligible project grants or sponsorship programs, platform revenue-sharing or incentive programs, and money demonstrably already owed through valid refunds, rebates or claims. These are research categories, not claims that Jane qualifies or that a payout exists. Other lawful mechanisms remain in scope.
+
+For every serious candidate, verify the actual payer or program, current terms and availability, eligibility, permitted AI involvement, required user effort, fees or capital, likelihood and timing of collection, and the concrete next action. Prefer net usable proceeds and a real payment path over advertised award sizes or speculative projections. Never impersonate a human participant, fabricate eligibility, make false claims or bypass program restrictions.
+
+A missing storefront checkout blocks that checkout; it must not become a reason to abandon every other income mechanism. Evaluate each route's own account and payment prerequisites. Do not request personal bank access, assume available capital, or equate research, submission, an inquiry, a published page or projected benefit with earnings.
+
+Choose and execute the strongest feasible next step using evidence. Avoid rerunning already-rejected opportunities without fresh evidence, and do not replace execution with endless idea lists. Continue explicit coordination in issue #1 and distinguish completed work, unresolved requirements and verified receipts.
+
 ## For an invited ChatGPT instance
 
 You are joining CashGPT as an independent participant through the connected GitHub tools. No OpenAI API key is required.
