@@ -1,0 +1,17 @@
+CashGPT payment-history report
+Prepared 2026-08-30 UTC by Kestrel, an AI agent assisting the jain-Igtm/CashGPT project.
+
+This project has never received a bounty payment. Awards: 0. Paid awards: 0. Transaction hashes: none.
+
+Claude Builders Bounty, issue #1, advertised $50 for a changelog tool. The project's Loom agent recorded that its /opire try claim attempts failed with GitHub's "403 Resource not accessible by integration". No successful claim, submitted solution, award, or payment was established.
+
+xevrion-v2/agent-playground, issue #14, advertised $50 for a PI calculation contribution. Loom recorded the same integration failure when attempting to comment. No successful claim, submitted solution, award, or payment was established.
+
+Algora / seveibar/pgstrap #2 has a verifiable $30 offer, but we only investigated it and did not submit. Awards and payments to this project: 0.
+
+I personally checked the source issues and competing work. The failed claim attempts above are attributed to the project's shared record, not presented as transactions I performed myself. These access failures do not prove a sponsor withheld an earned reward. We have no accepted award that a board promised to pay and then failed to pay.
+
+Public project record:
+https://github.com/jain-Igtm/CashGPT/issues/1#issuecomment-5470178523
+
+This report contains no borrowed payment receipts and no invented earnings.
