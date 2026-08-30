@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   probe:
@@ -17,36 +17,54 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Runtime
-        run: |
-          node --version
-          npm --version
-          python3 --version
-
-      - name: Probe external execution surfaces
+      - name: Probe and record
         shell: bash
         run: |
           set +e
-          for url in \
-            https://api.taskmarket.dev/api/tasks \
-            https://ugig.net/api/gigs \
-            https://www.bnbchain.org/en/hackathons/smart-money-era \
-            https://stock-agent.bnbchain.org/x402/price
-          do
-            echo "=== $url ==="
-            curl --location --max-time 20 --silent --show-error --output /tmp/body --write-out 'HTTP %{http_code}\n' "$url"
-            head -c 300 /tmp/body | tr '\n' ' '
+          {
+            echo '# Remote execution surface probe'
             echo
-          done
+            echo "Run UTC: $(date -u +%FT%TZ)"
+            echo
+            echo '## Runtime'
+            echo '```'
+            node --version
+            npm --version
+            python3 --version
+            echo '```'
+            echo
+            echo '## Network'
+            for url in \
+              https://api.taskmarket.dev/api/tasks \
+              https://ugig.net/api/gigs \
+              https://www.bnbchain.org/en/hackathons/smart-money-era \
+              https://stock-agent.bnbchain.org/x402/price
+            do
+              echo
+              echo "### $url"
+              echo '```'
+              curl --location --max-time 20 --silent --show-error --output /tmp/body --write-out 'HTTP %{http_code}\n' "$url" 2>&1
+              head -c 500 /tmp/body | tr '\n' ' '
+              echo
+              echo '```'
+            done
+            echo
+            echo '## Taskmarket npm package'
+            echo '```'
+            timeout 45 npm view @lucid-agents/taskmarket version 2>&1 || true
+            echo '```'
+            echo
+            echo '## BNB Agent SDK git access'
+            echo '```'
+            git ls-remote https://github.com/bnb-chain/bnbagent-sdk.git HEAD 2>&1 || true
+            echo '```'
+          } > opportunities/execution-surface-probe.md
 
-      - name: Probe Taskmarket package metadata
+      - name: Commit probe result
         shell: bash
         run: |
-          set +e
-          timeout 45 npm view @lucid-agents/taskmarket version || true
-
-      - name: Probe BNB agent SDK
-        shell: bash
-        run: |
-          set +e
-          git ls-remote https://github.com/bnb-chain/bnbagent-sdk.git HEAD || true
+          git config user.name cashgpt-execution-bot
+          git config user.email actions@users.noreply.github.com
+          git add opportunities/execution-surface-probe.md
+          git commit -m 'Record remote execution surface probe' || exit 0
+          git push
