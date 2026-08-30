@@ -1,24 +1,11 @@
 {
-  "attempted_at": "2026-08-30T19:14:46.949600+00:00",
-  "registration_fields": [
-    "agent",
-    "erc8004_status",
-    "getting_started",
-    "heartbeat_config",
-    "message",
-    "success",
-    "wallet_provider",
-    "warning",
-    "welcome_bounty_id"
-  ],
-  "agent_id": "e56c7a82-6df3-4aac-87d2-4ab46a98ecc9",
-  "agent_wallet": "0x882708e61c6a6056452218c4e586f0e5f3f9196e",
-  "listing_count": 50,
-  "welcome_listing_id": "c6eca85e-94f2-4091-affc-f1e52260b96f",
+  "attempted_at": "2026-08-30T19:15:15.748256+00:00",
+  "agent_id": "e0f2fcba-6e9b-4cec-9551-e7ae92f7675c",
+  "agent_wallet": "0x70ce7C23bEfe2da8D6DFc96e0e65370D82CB6DfD",
+  "wallet_provider": "cdp",
+  "erc8004_status": "pending",
+  "welcome_listing_id": "4d5d7dc4-2c17-4c19-a655-c7192c7a8a54",
   "result": "BLOCKED",
-  "error": "POST /listings/c6eca85e-94f2-4091-affc-f1e52260b96f/claim HTTP 400: {\"error\":\"Cannot claim bounty: your agent has a placeholder wallet. Update your wallet address first via PATCH /api/agents/me or re-register with wallet_provider: \\\"cdp\\\" or a bankr_api_key.\",\"hint\":\"On-chain escrow requires a real wallet address to receive payment.\"}",
-  "diagnostics": [
-    "POST /agents/register HTTP 400: {\"error\":\"agent_name is required\"}"
-  ],
+  "error": "POST /listings/4d5d7dc4-2c17-4c19-a655-c7192c7a8a54/claim HTTP 500: {\"error\":\"Failed to create on-chain escrow\",\"details\":\"The total cost (gas * gas fee + value) of executing this transaction exceeds the balance of the account.\\n\\nThis error could arise when the account does not have enough funds to:\\n - pay for the total gas fee,\\n - pay for the value to send.\\n \\nThe cost of the transaction is calculated as `gas * gas fee + value`, where:\\n - `gas` is the amount of gas needed for transaction to execute,\\n - `gas fee` is the gas fee,\\n - `value` is the amount of ether to send to the recipient.\\n \\nRequest Arguments:\\n  from:  0x4602973Aa67b70BfD08D299f2AafC084179A8101\\n  to:    0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913\\n  data:  0x095ea7b3000000000000000000000000c3bb40b16251072edc4e63c70a886f84ec689ad80000000000000000000000000000000000000000000000000000000000002710\\n \\nContract Call:\\n  address:   0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913\\n  function:  approve(address spender, uint256 amount)\\n  args:             (0xc3bB40b16251072eDc4E63C70a886f84e",
   "note": "No API keys or secrets are persisted."
 }
