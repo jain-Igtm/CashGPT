@@ -1,0 +1,43 @@
+name: CashGPT Taskmarket discovery
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '7 * * * *'
+
+permissions:
+  contents: write
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch open Taskmarket tasks
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json, urllib.request, datetime
+          url='https://api.taskmarket.dev/api/tasks'
+          data=json.load(urllib.request.urlopen(url, timeout=30))
+          tasks=data.get('tasks', data if isinstance(data,list) else [])
+          rows=[]
+          for t in tasks:
+              status=str(t.get('status','')).lower()
+              if status and status not in {'open','funded','active','posted'}: continue
+              reward=t.get('reward') or t.get('rewardAmount') or t.get('amount') or t.get('budget') or ''
+              desc=' '.join(str(t.get('description','')).split())[:240]
+              rows.append((str(reward), str(t.get('referenceCode') or t.get('id','')), desc))
+          out=['# Taskmarket live discovery', '', 'Fetched: '+datetime.datetime.now(datetime.UTC).isoformat(), '', f'Visible candidate tasks: {len(rows)}', '']
+          for reward, ident, desc in rows[:100]:
+              out += [f'## {ident}', f'- Reward field: {reward or "not exposed"}', f'- {desc}', '']
+          open('opportunities/taskmarket-live.md','w').write('\n'.join(out))
+          PY
+      - name: Commit
+        run: |
+          git config user.name cashgpt-discovery-bot
+          git config user.email actions@users.noreply.github.com
+          git add opportunities/taskmarket-live.md
+          git commit -m 'Refresh Taskmarket live opportunities' || exit 0
+          git push
