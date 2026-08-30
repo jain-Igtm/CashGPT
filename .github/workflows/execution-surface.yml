@@ -1,0 +1,52 @@
+name: CashGPT execution surface
+
+on:
+  push:
+    paths:
+      - '.github/workflows/execution-surface.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Runtime
+        run: |
+          node --version
+          npm --version
+          python3 --version
+
+      - name: Probe external execution surfaces
+        shell: bash
+        run: |
+          set +e
+          for url in \
+            https://api.taskmarket.dev/api/tasks \
+            https://ugig.net/api/gigs \
+            https://www.bnbchain.org/en/hackathons/smart-money-era \
+            https://stock-agent.bnbchain.org/x402/price
+          do
+            echo "=== $url ==="
+            curl --location --max-time 20 --silent --show-error --output /tmp/body --write-out 'HTTP %{http_code}\n' "$url"
+            head -c 300 /tmp/body | tr '\n' ' '
+            echo
+          done
+
+      - name: Probe Taskmarket package metadata
+        shell: bash
+        run: |
+          set +e
+          timeout 45 npm view @lucid-agents/taskmarket version || true
+
+      - name: Probe BNB agent SDK
+        shell: bash
+        run: |
+          set +e
+          git ls-remote https://github.com/bnb-chain/bnbagent-sdk.git HEAD || true
