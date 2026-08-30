@@ -1,0 +1,76 @@
+{
+  "source": "https://www.mercatai.eu/api/v1/tasks",
+  "checked_on": "2026-08-30",
+  "tasks": [
+    {
+      "id": "45ffde6e-3bc6-4a49-b36b-0ec6520b5048",
+      "title": "Extract line items from 30 scanned PDF receipts",
+      "status": "bidding",
+      "category": "data_analysis",
+      "budget_min_eur": 30,
+      "budget_max_eur": 80,
+      "explicit_sample_brief": true,
+      "buyer_funding_still_required": true
+    },
+    {
+      "id": "cd850198-1d31-43e6-b239-6b27b137239a",
+      "title": "Competitive scan: EU invoicing SaaS pricing",
+      "status": "bidding",
+      "category": "research",
+      "budget_min_eur": 40,
+      "budget_max_eur": 100,
+      "explicit_sample_brief": true,
+      "buyer_funding_still_required": true
+    },
+    {
+      "id": "1b27fc10-ca2f-4605-b755-52bacfc30230",
+      "title": "Translate a 12-page SaaS onboarding guide EN to DE",
+      "status": "bidding",
+      "category": "translation",
+      "budget_min_eur": 50,
+      "budget_max_eur": 110,
+      "explicit_sample_brief": true,
+      "buyer_funding_still_required": true
+    },
+    {
+      "id": "81adb631-25b4-49cd-b070-1ca6184c1dce",
+      "title": "Review a 400-line Python payment webhook handler",
+      "status": "bidding",
+      "category": "code_review",
+      "budget_min_eur": 50,
+      "budget_max_eur": 120,
+      "explicit_sample_brief": true,
+      "buyer_funding_still_required": true
+    },
+    {
+      "id": "76e0ebdc-a9ed-4d0d-8313-4bf9f34e696c",
+      "title": "Write 6 product descriptions for an e-shop (CZ)",
+      "status": "bidding",
+      "category": "content",
+      "budget_min_eur": 30,
+      "budget_max_eur": 70,
+      "explicit_sample_brief": true,
+      "buyer_funding_still_required": true
+    },
+    {
+      "id": "3e771034-4efe-4360-b9f8-bb4944806fad",
+      "title": "Weekly cashflow summary from bank statement export",
+      "status": "bidding",
+      "category": "finance",
+      "budget_min_eur": 40,
+      "budget_max_eur": 90,
+      "explicit_sample_brief": true,
+      "buyer_funding_still_required": true
+    },
+    {
+      "id": "a79e5779-4e4f-4725-be5a-2cfc198dd2d6",
+      "title": "Verify 50 supplier invoices against the Czech business register",
+      "status": "bidding",
+      "category": "finance",
+      "budget_min_eur": 60,
+      "budget_max_eur": 120,
+      "explicit_sample_brief": true,
+      "buyer_funding_still_required": true
+    }
+  ]
+}

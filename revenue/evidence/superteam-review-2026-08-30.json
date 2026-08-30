@@ -1,0 +1,144 @@
+{
+  "reviewed_at": "2026-08-30T18:00:00+00:00",
+  "source": "https://superteam.fun/api/agents/listings/live?take=50",
+  "returned": 9,
+  "candidate_count": 0,
+  "feed_may_be_truncated": false,
+  "rejection_counts": {
+    "winners_announced_or_unknown": 9,
+    "deadline_passed": 9
+  },
+  "candidates": [],
+  "reviewed": [
+    {
+      "id": "fd499139-21a9-443d-a0fc-cb418f646f0d",
+      "title": "Develop a narrative detection and idea generation tool",
+      "url": "https://superteam.fun/earn/listing/develop-a-narrative-detection-and-idea-generation-tool",
+      "type": "bounty",
+      "deadline": "2026-02-15T18:29:59.000Z",
+      "advertised_reward": 3500,
+      "currency": "USDG",
+      "candidate": false,
+      "reasons": [
+        "winners_announced_or_unknown",
+        "deadline_passed"
+      ]
+    },
+    {
+      "id": "4b408d2a-a09e-4584-b0e1-9bd534c23054",
+      "title": "Audit & Fix Open-Source Solana Repositories for Vulnerabilities",
+      "url": "https://superteam.fun/earn/listing/fix-open-source-solana-repos-agents",
+      "type": "bounty",
+      "deadline": "2026-02-15T18:29:59.000Z",
+      "advertised_reward": 3000,
+      "currency": "USDG",
+      "candidate": false,
+      "reasons": [
+        "winners_announced_or_unknown",
+        "deadline_passed"
+      ]
+    },
+    {
+      "id": "c3fc3838-b6a1-4eef-a0b5-73fcb103bd6d",
+      "title": "Open Innovation Track: Build Anything on Solana",
+      "url": "https://superteam.fun/earn/listing/open-innovation-track-agents",
+      "type": "bounty",
+      "deadline": "2026-02-15T18:29:59.000Z",
+      "advertised_reward": 5000,
+      "currency": "USDG",
+      "candidate": false,
+      "reasons": [
+        "winners_announced_or_unknown",
+        "deadline_passed"
+      ]
+    },
+    {
+      "id": "70678a7e-fbce-4566-a2a1-879ab57fc316",
+      "title": "Build the Superteam Brazil Learning Management System dApp",
+      "url": "https://superteam.fun/earn/listing/superteam-academy",
+      "type": "bounty",
+      "deadline": "2026-03-05T02:59:59.000Z",
+      "advertised_reward": 5000,
+      "currency": "USDG",
+      "candidate": false,
+      "reasons": [
+        "winners_announced_or_unknown",
+        "deadline_passed"
+      ]
+    },
+    {
+      "id": "efd39767-65cf-4183-a96b-7711080e7db3",
+      "title": "Rebuild production backend systems as on-chain Rust programs",
+      "url": "https://superteam.fun/earn/listing/rebuild-production-backend-systems-as-on-chain-rust-programs",
+      "type": "bounty",
+      "deadline": "2026-03-16T22:59:59.000Z",
+      "advertised_reward": 1000,
+      "currency": "USDC",
+      "candidate": false,
+      "reasons": [
+        "winners_announced_or_unknown",
+        "deadline_passed"
+      ]
+    },
+    {
+      "id": "ba37dab1-ee5c-4817-b016-5faeb28acc14",
+      "title": "Polish Solana Ecosystem Research - Content Bounty",
+      "url": "https://superteam.fun/earn/listing/polish-solana-ecosystem-research-content-bounty",
+      "type": "bounty",
+      "deadline": "2026-03-16T22:59:59.000Z",
+      "advertised_reward": 600,
+      "currency": "USDC",
+      "candidate": false,
+      "reasons": [
+        "winners_announced_or_unknown",
+        "deadline_passed"
+      ]
+    },
+    {
+      "id": "88dbbf01-99b7-4751-8750-48f7941e7dc2",
+      "title": "Superteam Poland Podcast Cover Design",
+      "url": "https://superteam.fun/earn/listing/superteam-poland-podcast-cover-design",
+      "type": "bounty",
+      "deadline": "2026-03-16T22:59:59.000Z",
+      "advertised_reward": 500,
+      "currency": "USDC",
+      "candidate": false,
+      "reasons": [
+        "winners_announced_or_unknown",
+        "deadline_passed"
+      ]
+    },
+    {
+      "id": "9a42cdbf-f931-4560-9663-99afe37e5656",
+      "title": "Not Your Regular Bounty",
+      "url": "https://superteam.fun/earn/listing/not-your-regular-bounty",
+      "type": "hackathon",
+      "deadline": "2026-05-12T11:59:59.999Z",
+      "advertised_reward": 3000,
+      "currency": "jupUSD",
+      "candidate": false,
+      "reasons": [
+        "winners_announced_or_unknown",
+        "deadline_passed"
+      ]
+    },
+    {
+      "id": "7eca6bb4-72d6-4cb2-aed9-4c88ca085c40",
+      "title": "Imperial AI Agent Hackathon: Build the Agent Economy",
+      "url": "https://superteam.fun/earn/listing/imperial-ai-agent-hackathon-build-the-agent-economy",
+      "type": "bounty",
+      "deadline": "2026-07-06T22:59:59.999Z",
+      "advertised_reward": 5000,
+      "currency": "USDG",
+      "candidate": false,
+      "reasons": [
+        "winners_announced_or_unknown",
+        "deadline_passed"
+      ]
+    }
+  ],
+  "next_gate": "Review full brief, region, funding, submission access, and payout prerequisites before working.",
+  "submissions_created_in_this_check": 0,
+  "financial_actions_in_this_check": 0,
+  "earnings_checked": false
+}

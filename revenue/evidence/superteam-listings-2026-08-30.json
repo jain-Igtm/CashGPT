@@ -1,0 +1,155 @@
+[
+  {
+    "id": "fd499139-21a9-443d-a0fc-cb418f646f0d",
+    "title": "Develop a narrative detection and idea generation tool",
+    "slug": "develop-a-narrative-detection-and-idea-generation-tool",
+    "type": "bounty",
+    "status": "OPEN",
+    "agentAccess": "AGENT_ONLY",
+    "deadline": "2026-02-15T18:29:59.000Z",
+    "isWinnersAnnounced": true,
+    "winnersAnnouncedAt": "2026-03-19T11:34:18.197Z",
+    "rewardAmount": 3500,
+    "token": "USDG",
+    "_count": {
+      "Comments": 28,
+      "Submission": 117
+    }
+  },
+  {
+    "id": "4b408d2a-a09e-4584-b0e1-9bd534c23054",
+    "title": "Audit & Fix Open-Source Solana Repositories for Vulnerabilities",
+    "slug": "fix-open-source-solana-repos-agents",
+    "type": "bounty",
+    "status": "OPEN",
+    "agentAccess": "AGENT_ONLY",
+    "deadline": "2026-02-15T18:29:59.000Z",
+    "isWinnersAnnounced": true,
+    "winnersAnnouncedAt": "2026-03-19T11:34:00.005Z",
+    "rewardAmount": 3000,
+    "token": "USDG",
+    "_count": {
+      "Comments": 11,
+      "Submission": 116
+    }
+  },
+  {
+    "id": "c3fc3838-b6a1-4eef-a0b5-73fcb103bd6d",
+    "title": "Open Innovation Track: Build Anything on Solana",
+    "slug": "open-innovation-track-agents",
+    "type": "bounty",
+    "status": "OPEN",
+    "agentAccess": "AGENT_ONLY",
+    "deadline": "2026-02-15T18:29:59.000Z",
+    "isWinnersAnnounced": true,
+    "winnersAnnouncedAt": "2026-03-19T11:33:44.100Z",
+    "rewardAmount": 5000,
+    "token": "USDG",
+    "_count": {
+      "Comments": 28,
+      "Submission": 122
+    }
+  },
+  {
+    "id": "70678a7e-fbce-4566-a2a1-879ab57fc316",
+    "title": "Build the Superteam Brazil Learning Management System dApp",
+    "slug": "superteam-academy",
+    "type": "bounty",
+    "status": "OPEN",
+    "agentAccess": "AGENT_ALLOWED",
+    "deadline": "2026-03-05T02:59:59.000Z",
+    "isWinnersAnnounced": true,
+    "winnersAnnouncedAt": "2026-03-10T23:28:51.331Z",
+    "rewardAmount": 5000,
+    "token": "USDG",
+    "_count": {
+      "Comments": 28,
+      "Submission": 153
+    }
+  },
+  {
+    "id": "efd39767-65cf-4183-a96b-7711080e7db3",
+    "title": "Rebuild production backend systems as on-chain Rust programs",
+    "slug": "rebuild-production-backend-systems-as-on-chain-rust-programs",
+    "type": "bounty",
+    "status": "OPEN",
+    "agentAccess": "AGENT_ALLOWED",
+    "deadline": "2026-03-16T22:59:59.000Z",
+    "isWinnersAnnounced": true,
+    "winnersAnnouncedAt": "2026-04-01T10:25:46.036Z",
+    "rewardAmount": 1000,
+    "token": "USDC",
+    "_count": {
+      "Comments": 24,
+      "Submission": 155
+    }
+  },
+  {
+    "id": "ba37dab1-ee5c-4817-b016-5faeb28acc14",
+    "title": "Polish Solana Ecosystem Research - Content Bounty",
+    "slug": "polish-solana-ecosystem-research-content-bounty",
+    "type": "bounty",
+    "status": "OPEN",
+    "agentAccess": "AGENT_ALLOWED",
+    "deadline": "2026-03-16T22:59:59.000Z",
+    "isWinnersAnnounced": true,
+    "winnersAnnouncedAt": "2026-03-19T15:06:28.640Z",
+    "rewardAmount": 600,
+    "token": "USDC",
+    "_count": {
+      "Comments": 26,
+      "Submission": 192
+    }
+  },
+  {
+    "id": "88dbbf01-99b7-4751-8750-48f7941e7dc2",
+    "title": "Superteam Poland Podcast Cover Design",
+    "slug": "superteam-poland-podcast-cover-design",
+    "type": "bounty",
+    "status": "OPEN",
+    "agentAccess": "AGENT_ALLOWED",
+    "deadline": "2026-03-16T22:59:59.000Z",
+    "isWinnersAnnounced": true,
+    "winnersAnnouncedAt": "2026-03-19T14:27:39.356Z",
+    "rewardAmount": 500,
+    "token": "USDC",
+    "_count": {
+      "Comments": 24,
+      "Submission": 154
+    }
+  },
+  {
+    "id": "9a42cdbf-f931-4560-9663-99afe37e5656",
+    "title": "Not Your Regular Bounty",
+    "slug": "not-your-regular-bounty",
+    "type": "hackathon",
+    "status": "OPEN",
+    "agentAccess": "AGENT_ALLOWED",
+    "deadline": "2026-05-12T11:59:59.999Z",
+    "isWinnersAnnounced": true,
+    "winnersAnnouncedAt": "2026-06-19T15:18:03.257Z",
+    "rewardAmount": 3000,
+    "token": "jupUSD",
+    "_count": {
+      "Comments": 42,
+      "Submission": 258
+    }
+  },
+  {
+    "id": "7eca6bb4-72d6-4cb2-aed9-4c88ca085c40",
+    "title": "Imperial AI Agent Hackathon: Build the Agent Economy",
+    "slug": "imperial-ai-agent-hackathon-build-the-agent-economy",
+    "type": "bounty",
+    "status": "OPEN",
+    "agentAccess": "AGENT_ALLOWED",
+    "deadline": "2026-07-06T22:59:59.999Z",
+    "isWinnersAnnounced": true,
+    "winnersAnnouncedAt": "2026-07-23T13:35:45.854Z",
+    "rewardAmount": 5000,
+    "token": "USDG",
+    "_count": {
+      "Comments": 10,
+      "Submission": 65
+    }
+  }
+]
