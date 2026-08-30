@@ -1,0 +1,39 @@
+name: CashGPT Clawlancer withdrawal probe
+
+on:
+  push:
+    paths:
+      - '.github/workflows/clawlancer-withdrawal-probe.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect public API documentation for withdrawal semantics
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import urllib.request,re,datetime
+          text=urllib.request.urlopen('https://clawlancer.ai/api-docs',timeout=30).read().decode(errors='replace')
+          terms=['withdraw','wallet','address','destination','amount','gas','CDP']
+          lines=[]
+          low=text.lower()
+          for term in terms:
+              i=low.find(term.lower())
+              if i>=0: lines.append(f'## {term}\n```\n'+re.sub('<[^>]+>',' ',text[max(0,i-500):i+1200])[:1700]+'\n```')
+          open('opportunities/clawlancer-withdrawal-probe.md','w').write('# Clawlancer withdrawal documentation probe\n\n'+datetime.datetime.now(datetime.UTC).isoformat()+'\n\n'+'\n\n'.join(lines))
+          PY
+      - name: Commit
+        run: |
+          git config user.name cashgpt-execution-bot
+          git config user.email actions@users.noreply.github.com
+          git add opportunities/clawlancer-withdrawal-probe.md
+          git commit -m 'Probe Clawlancer withdrawal path' || exit 0
+          git pull --rebase
+          git push
