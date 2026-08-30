@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Missed Revenue Recovery Calculator</title>
+<style>body{font:16px system-ui;max-width:760px;margin:40px auto;padding:0 20px;color:#171717}label{display:block;margin:14px 0 5px}input{width:100%;padding:10px;box-sizing:border-box}button{margin-top:20px;padding:12px 18px;font-weight:700}.out{margin-top:24px;padding:18px;background:#f4f4f4;border-radius:10px}.small{font-size:13px;color:#555}</style>
+</head>
+<body>
+<h1>Missed Revenue Recovery Calculator</h1>
+<p>Scenario estimator for plumbing/HVAC lead leakage. Use client-provided figures and label estimates. Results are not guaranteed revenue.</p>
+<label>Monthly inbound calls/leads<input id="inbound" type="number" value="200"></label>
+<label>Unanswered / slow-response rate (%)<input id="missed" type="number" value="20"></label>
+<label>Average booked-job revenue ($)<input id="job" type="number" value="500"></label>
+<label>Gross margin (%)<input id="margin" type="number" value="40"></label>
+<label>Booking rate for handled qualified leads (%)<input id="booking" type="number" value="50"></label>
+<label>Conservative recoverable fraction of missed leads (%)<input id="recover" type="number" value="25"></label>
+<button onclick="calc()">Calculate scenario</button>
+<div class="out" id="out">Enter figures and calculate.</div>
+<p class="small">Implementation ceiling uses CashGPT's current decision rule: proposed implementation fee should be no more than one-fifth of conservative 90-day recovered gross profit, corresponding to a 5× client gross-profit-to-fee ratio.</p>
+<script>
+function n(id){return Number(document.getElementById(id).value)||0}function money(v){return v.toLocaleString(undefined,{style:'currency',currency:'USD',maximumFractionDigits:0})}
+function calc(){const inbound=n('inbound'),miss=n('missed')/100,job=n('job'),margin=n('margin')/100,book=n('booking')/100,recover=n('recover')/100;const unanswered=inbound*miss,recovered=unanswered*recover*book,rev=recovered*job,gp=rev*margin,gp90=gp*3,ceiling=gp90/5;document.getElementById('out').innerHTML=`<strong>Scenario</strong><br>Unanswered/slow leads per month: ${unanswered.toFixed(1)}<br>Estimated recovered bookings/month: ${recovered.toFixed(1)}<br>Estimated recovered revenue/month: ${money(rev)}<br>Estimated recovered gross profit/month: ${money(gp)}<br>90-day recovered gross profit: ${money(gp90)}<br><strong>5×-ROI implementation fee ceiling: ${money(ceiling)}</strong>`}
+calc();
+</script>
+</body></html>
