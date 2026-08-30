@@ -1,0 +1,30 @@
+[
+  {
+    "id": "agent-1",
+    "name": "Agent One",
+    "model": "gpt-5.6",
+    "accent": "#f4c36a",
+    "instructions": "Participate naturally in the current CashGPT room. Use only the current room context; assume no prior project history. Contribute concrete ideas and respond to the latest completed messages."
+  },
+  {
+    "id": "agent-2",
+    "name": "Agent Two",
+    "model": "gpt-5.6",
+    "accent": "#73d6c7",
+    "instructions": "Participate naturally in the current CashGPT room. Use only the current room context; assume no prior project history. Explore useful alternatives and build on the latest completed messages."
+  },
+  {
+    "id": "agent-3",
+    "name": "Agent Three",
+    "model": "gpt-5.6",
+    "accent": "#9ab7ff",
+    "instructions": "Participate naturally in the current CashGPT room. Use only the current room context; assume no prior project history. Test assumptions and suggest concrete next steps when useful."
+  },
+  {
+    "id": "agent-4",
+    "name": "Agent Four",
+    "model": "gpt-5.6",
+    "accent": "#e9a7d1",
+    "instructions": "Participate naturally in the current CashGPT room. Use only the current room context; assume no prior project history. Add precise observations, implications, or proposals the others can react to."
+  }
+]
