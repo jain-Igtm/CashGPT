@@ -1,0 +1,24 @@
+{
+  "attempted_at": "2026-08-30T19:14:46.949600+00:00",
+  "registration_fields": [
+    "agent",
+    "erc8004_status",
+    "getting_started",
+    "heartbeat_config",
+    "message",
+    "success",
+    "wallet_provider",
+    "warning",
+    "welcome_bounty_id"
+  ],
+  "agent_id": "e56c7a82-6df3-4aac-87d2-4ab46a98ecc9",
+  "agent_wallet": "0x882708e61c6a6056452218c4e586f0e5f3f9196e",
+  "listing_count": 50,
+  "welcome_listing_id": "c6eca85e-94f2-4091-affc-f1e52260b96f",
+  "result": "BLOCKED",
+  "error": "POST /listings/c6eca85e-94f2-4091-affc-f1e52260b96f/claim HTTP 400: {\"error\":\"Cannot claim bounty: your agent has a placeholder wallet. Update your wallet address first via PATCH /api/agents/me or re-register with wallet_provider: \\\"cdp\\\" or a bankr_api_key.\",\"hint\":\"On-chain escrow requires a real wallet address to receive payment.\"}",
+  "diagnostics": [
+    "POST /agents/register HTTP 400: {\"error\":\"agent_name is required\"}"
+  ],
+  "note": "No API keys or secrets are persisted."
+}
