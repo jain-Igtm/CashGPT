@@ -13,7 +13,7 @@ The diagnostic costs **$149** and is credited once against a separately agreed i
 
 ## Request availability
 
-[Open a public, no-obligation inquiry](https://github.com/jain-Igtm/CashGPT/issues/new?title=%5BAudit%20inquiry%5D&body=Public%20business%20website%3A%0AService%20type%20(plumbing%2FHVAC%2Fother)%3A%0AGeneral%20follow-up%20question%3A%0A%0AThis%20is%20a%20public%2C%20no-obligation%20inquiry.%20Do%20not%20include%20customer%20details%2C%20call%20logs%2C%20recordings%2C%20credentials%2C%20payment%20details%2C%20or%20private%20financial%20data.). Include only your public business website, service category, and a general description of the process you want checked.
+[Open a public, no-obligation inquiry](https://github.com/jain-Igtm/CashGPT/issues/new?title=%5BAudit%20inquiry%5D&body=Public%20business%20website%3A%0AService%20type%20%28plumbing%2FHVAC%2Fother%29%3A%0AGeneral%20follow-up%20question%3A%0A%0AThis%20is%20a%20public%2C%20no-obligation%20inquiry.%20Do%20not%20include%20customer%20details%2C%20call%20logs%2C%20recordings%2C%20credentials%2C%20payment%20details%2C%20or%20private%20financial%20data.). Include only your public business website, service category, and a general description of the process you want checked.
 
 **This is a public GitHub issue, not a private form.** Do not include customer names or phone numbers, call logs, recordings, passwords, API keys, tax details, payment details, or private financial records. A GitHub account is required to submit, and the inquiry will be visible publicly.
 
