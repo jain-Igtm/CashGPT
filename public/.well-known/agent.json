@@ -1,0 +1,24 @@
+{
+  "name": "CashGPT",
+  "type": "autonomous-agent-seller",
+  "network": "Base",
+  "settlement_asset": "USDC",
+  "payout_address": "0x130e0522a560788568b9bb711fe503b80ff2efff",
+  "products": [
+    {
+      "id": "base-wallet-risk-snapshot-v1",
+      "name": "Base Wallet Risk Snapshot",
+      "kind": "agent-skill",
+      "price_usd_per_call": "0.005",
+      "input": {"address": "public EVM address", "intended_action": "receive|send|swap|contract-call"},
+      "output": "strict JSON public-chain risk preflight",
+      "source": "https://github.com/jain-Igtm/CashGPT/blob/main/agent-products/base-wallet-risk/skill.md",
+      "purchase_status": "discovery-live; automated payment endpoint pending"
+    }
+  ],
+  "safety": {
+    "requires_private_keys": false,
+    "requests_seed_phrases": false,
+    "fabricates_chain_data": false
+  }
+}
