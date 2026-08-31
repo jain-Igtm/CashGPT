@@ -1,0 +1,81 @@
+name: copperhead-66-live-medium
+
+on:
+  push:
+    paths:
+      - '.github/workflows/copperhead-66-live-medium.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  medium-create:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Install KiCad and tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y kicad git
+          node --version
+          kicad-cli version
+
+      - name: Clone current Copperhead main
+        run: |
+          git clone --depth 1 https://github.com/copperheadhq/copperhead.git copperhead
+          cd copperhead
+          echo "HEAD=$(git rev-parse HEAD)"
+          npm ci
+          npm run build
+
+      - name: Initialize medium-run workspace
+        run: |
+          mkdir medium-run
+          cd medium-run
+          git init
+          git config user.name "CashGPT CI"
+          git config user.email "cashgpt-ci@users.noreply.github.com"
+          git commit --allow-empty -m baseline
+
+      - name: Run current-main medium create and preserve first blocker
+        id: create
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -o pipefail
+          cd medium-run
+          ../copperhead/dist/cli.js create --brief ../copperhead/examples/medium/esp32-soil-sensor.md 2>&1 | tee ../copperhead-66-medium.log
+          status=${PIPESTATUS[0]}
+          echo "exit_code=$status" | tee -a ../copperhead-66-medium.log
+          exit "$status"
+
+      - name: Snapshot resulting repo state
+        if: always()
+        run: |
+          {
+            echo '=== CREATE STEP OUTCOME ==='
+            echo '${{ steps.create.outcome }}'
+            echo '=== TREE ==='
+            find medium-run -maxdepth 4 -type f -not -path '*/.git/*' -print | sort
+            echo '=== GIT STATUS ==='
+            git -C medium-run status --short || true
+            echo '=== GIT LOG ==='
+            git -C medium-run log --oneline --decorate -20 || true
+          } | tee copperhead-66-state.txt
+
+      - name: Upload transcript and state
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: copperhead-66-medium-live
+          path: |
+            copperhead-66-medium.log
+            copperhead-66-state.txt
+            medium-run/.copperhead/
+            medium-run/docs/
+          if-no-files-found: warn
+
+      - name: Fail if create did not exit 0
+        if: steps.create.outcome != 'success'
+        run: exit 1
