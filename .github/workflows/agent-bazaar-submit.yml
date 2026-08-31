@@ -28,52 +28,42 @@ jobs:
           import { chromium } from 'playwright';
           const browser = await chromium.launch({headless:true});
           const page = await browser.newPage();
-          const url = 'https://www.agent-bazaar.com/dev';
-          await page.goto(url, {waitUntil:'networkidle', timeout:60000});
+          await page.goto('https://www.agent-bazaar.com/dev', {waitUntil:'networkidle', timeout:60000});
           console.log('loaded', await page.title());
+          console.log('before', (await page.locator('body').innerText()).slice(0,3000));
 
-          const inputs = await page.locator('input').count();
-          const textareas = await page.locator('textarea').count();
-          const selects = await page.locator('select').count();
-          console.log({inputs,textareas,selects});
-
-          const textInputs = page.locator('input[type="text"],input:not([type])');
-          if (await textInputs.count() < 2) throw new Error('Unexpected form shape: not enough text inputs');
-          await textInputs.nth(0).fill(process.env.PRODUCT_NAME);
-
-          if (textareas > 0) {
-            await page.locator('textarea').first().fill(process.env.PRODUCT_DESCRIPTION);
-          } else {
-            await textInputs.nth(1).fill(process.env.PRODUCT_DESCRIPTION);
+          const template = page.getByRole('button', {name:/skill template/i});
+          if (await template.count()) {
+            await template.click();
+            await page.waitForTimeout(500);
           }
 
-          const numberInputs = page.locator('input[type="number"]');
-          if (await numberInputs.count()) await numberInputs.first().fill(process.env.PRODUCT_PRICE);
-          else {
-            const allInputs = page.locator('input');
-            for (let i=0;i<await allInputs.count();i++) {
-              const ph = (await allInputs.nth(i).getAttribute('placeholder')) || '';
-              if (ph.includes('0.05')) await allInputs.nth(i).fill(process.env.PRODUCT_PRICE);
-            }
+          const nameInput = page.locator('input[placeholder*="GPT-4 Code Review"], input').first();
+          await nameInput.fill(process.env.PRODUCT_NAME);
+
+          const ta = page.locator('textarea');
+          if (await ta.count()) {
+            await ta.first().fill(process.env.PRODUCT_DESCRIPTION);
           }
 
-          if (selects > 0) {
-            for (let i=0;i<selects;i++) {
-              const s = page.locator('select').nth(i);
-              const opts = await s.locator('option').evaluateAll(os => os.map(o => ({v:o.value,t:o.textContent})));
-              console.log('select',i,opts);
-              const preferred = opts.find(o => /skill/i.test(o.t||'')) || opts.find(o => /crypto|data/i.test(o.t||'')) || opts.find(o => o.v);
-              if (preferred?.v) await s.selectOption(preferred.v);
-            }
-          }
+          const price = page.locator('input[placeholder="0.05"]');
+          if (await price.count()) await price.first().fill(process.env.PRODUCT_PRICE);
+
+          console.log('controls', await page.locator('input,textarea,select,button').evaluateAll(els => els.map(e => ({tag:e.tagName,text:e.textContent,ph:e.getAttribute('placeholder'),value:e.value,disabled:e.disabled}))));
 
           const submit = page.getByRole('button', {name:/submit for review/i});
+          console.log('submit_count', await submit.count(), 'disabled', await submit.isDisabled().catch(()=>null));
           if (!await submit.count()) throw new Error('Submit button not found');
+          if (await submit.isDisabled()) throw new Error('Submit button remains disabled after template + required fields');
           await submit.click();
-          await page.waitForTimeout(4000);
+          await page.waitForTimeout(5000);
+          const body = await page.locator('body').innerText();
           console.log('final_url', page.url());
-          console.log('body', (await page.locator('body').innerText()).slice(-4000));
+          console.log('after', body.slice(-5000));
           await page.screenshot({path:'agent-bazaar-submit.png', fullPage:true});
+          if (!/submitted|review|success|thank/i.test(body)) {
+            console.log('No explicit success text found; submission result requires evidence review.');
+          }
           await browser.close();
           JS
           node /tmp/submit.mjs
