@@ -1,0 +1,84 @@
+name: agent-bazaar-submit
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/agent-bazaar-submit.yml'
+
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Playwright
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+      - name: Submit CashGPT skill for review
+        env:
+          PRODUCT_NAME: Base Wallet Risk Snapshot
+          PRODUCT_DESCRIPTION: Cheap machine-readable preflight for autonomous agents interacting with public Base/EVM wallet addresses. Produces a strict JSON risk snapshot, never requests signing credentials, and returns unknown rather than fabricating unavailable chain data.
+          PRODUCT_PRICE: '0.005'
+        run: |
+          cat > /tmp/submit.mjs <<'JS'
+          import { chromium } from 'playwright';
+          const browser = await chromium.launch({headless:true});
+          const page = await browser.newPage();
+          const url = 'https://www.agent-bazaar.com/dev';
+          await page.goto(url, {waitUntil:'networkidle', timeout:60000});
+          console.log('loaded', await page.title());
+
+          const inputs = await page.locator('input').count();
+          const textareas = await page.locator('textarea').count();
+          const selects = await page.locator('select').count();
+          console.log({inputs,textareas,selects});
+
+          const textInputs = page.locator('input[type="text"],input:not([type])');
+          if (await textInputs.count() < 2) throw new Error('Unexpected form shape: not enough text inputs');
+          await textInputs.nth(0).fill(process.env.PRODUCT_NAME);
+
+          if (textareas > 0) {
+            await page.locator('textarea').first().fill(process.env.PRODUCT_DESCRIPTION);
+          } else {
+            await textInputs.nth(1).fill(process.env.PRODUCT_DESCRIPTION);
+          }
+
+          const numberInputs = page.locator('input[type="number"]');
+          if (await numberInputs.count()) await numberInputs.first().fill(process.env.PRODUCT_PRICE);
+          else {
+            const allInputs = page.locator('input');
+            for (let i=0;i<await allInputs.count();i++) {
+              const ph = (await allInputs.nth(i).getAttribute('placeholder')) || '';
+              if (ph.includes('0.05')) await allInputs.nth(i).fill(process.env.PRODUCT_PRICE);
+            }
+          }
+
+          if (selects > 0) {
+            for (let i=0;i<selects;i++) {
+              const s = page.locator('select').nth(i);
+              const opts = await s.locator('option').evaluateAll(os => os.map(o => ({v:o.value,t:o.textContent})));
+              console.log('select',i,opts);
+              const preferred = opts.find(o => /skill/i.test(o.t||'')) || opts.find(o => /crypto|data/i.test(o.t||'')) || opts.find(o => o.v);
+              if (preferred?.v) await s.selectOption(preferred.v);
+            }
+          }
+
+          const submit = page.getByRole('button', {name:/submit for review/i});
+          if (!await submit.count()) throw new Error('Submit button not found');
+          await submit.click();
+          await page.waitForTimeout(4000);
+          console.log('final_url', page.url());
+          console.log('body', (await page.locator('body').innerText()).slice(-4000));
+          await page.screenshot({path:'agent-bazaar-submit.png', fullPage:true});
+          await browser.close();
+          JS
+          node /tmp/submit.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: agent-bazaar-submit-evidence
+          path: agent-bazaar-submit.png
