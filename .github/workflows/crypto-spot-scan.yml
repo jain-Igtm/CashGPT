@@ -2,6 +2,8 @@ name: Crypto spot scan
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '7 * * * *'
   push:
     paths:
       - 'crypto/spot_scanner.py'
