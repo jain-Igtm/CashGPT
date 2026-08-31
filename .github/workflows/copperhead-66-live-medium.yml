@@ -8,24 +8,27 @@ on:
 
 permissions:
   contents: read
-  models: read
 
 jobs:
   medium-create:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 35
     env:
-      COPPERHEAD_BASE_URL: https://models.github.ai/inference
-      COPPERHEAD_API_KEY_ENV: GITHUB_TOKEN
-      COPPERHEAD_MODEL: compat:openai/gpt-4.1-mini
-      GITHUB_TOKEN: ${{ github.token }}
+      COPPERHEAD_BASE_URL: http://127.0.0.1:11434/v1
+      COPPERHEAD_API_KEY_ENV: COPPERHEAD_UNUSED_KEY
+      COPPERHEAD_MODEL: compat:qwen2.5-coder:3b
     steps:
-      - name: Install KiCad and tools
+      - name: Install KiCad, Ollama, and tools
         run: |
           sudo apt-get update
-          sudo apt-get install -y kicad git
+          sudo apt-get install -y kicad git curl
+          curl -fsSL https://ollama.com/install.sh | sh
+          nohup ollama serve >/tmp/ollama.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:11434/api/tags >/dev/null && break; sleep 1; done
+          ollama pull qwen2.5-coder:3b
           node --version
           kicad-cli version
+          ollama list
 
       - name: Clone current Copperhead main
         run: |
@@ -35,32 +38,12 @@ jobs:
           npm ci
           npm run build
 
-      - name: Probe GitHub Models compatibility without logging credentials
-        shell: bash
+      - name: Probe local OpenAI-compatible provider
         run: |
-          code=$(curl -sS -o /tmp/models.json -w '%{http_code}' \
-            -H "Authorization: Bearer $GITHUB_TOKEN" \
+          curl -fsS http://127.0.0.1:11434/v1/chat/completions \
             -H 'Content-Type: application/json' \
-            https://models.github.ai/inference/chat/completions \
-            -d '{"model":"openai/gpt-4.1-mini","messages":[{"role":"user","content":"Reply exactly OK"}],"max_tokens":4}')
-          echo "github_models_http=$code"
-          if [ "$code" != "200" ]; then
-            python - <<'PY'
-import json
-p='/tmp/models.json'
-try:
-    d=json.load(open(p))
-    print({'error': d.get('error', d)})
-except Exception:
-    print('non-json response')
-PY
-            exit 1
-          fi
-          python - <<'PY'
-import json
-j=json.load(open('/tmp/models.json'))
-print('github_models_reply=', j.get('choices',[{}])[0].get('message',{}).get('content','')[:80])
-PY
+            -d '{"model":"qwen2.5-coder:3b","messages":[{"role":"user","content":"Reply exactly OK"}],"max_tokens":4}' \
+            | python -c "import json,sys; j=json.load(sys.stdin); print('ollama_reply=',j['choices'][0]['message']['content'][:80])"
 
       - name: Initialize medium-run workspace
         run: |
@@ -95,6 +78,8 @@ PY
             git -C medium-run status --short || true
             echo '=== GIT LOG ==='
             git -C medium-run log --oneline --decorate -20 || true
+            echo '=== OLLAMA TAIL ==='
+            tail -80 /tmp/ollama.log || true
           } | tee copperhead-66-state.txt
 
       - name: Upload transcript and state
