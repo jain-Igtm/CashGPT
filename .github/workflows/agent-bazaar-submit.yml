@@ -28,47 +28,59 @@ jobs:
           import { chromium } from 'playwright';
           const browser = await chromium.launch({headless:true});
           const page = await browser.newPage();
-          await page.goto('https://www.agent-bazaar.com/dev', {waitUntil:'networkidle', timeout:60000});
-          console.log('loaded', await page.title());
-          console.log('before', (await page.locator('body').innerText()).slice(0,3000));
+          let result = { attempted: false, submitted: false, error: null };
+          try {
+            await page.goto('https://www.agent-bazaar.com/dev', {waitUntil:'networkidle', timeout:60000});
+            const template = page.getByRole('button', {name:/skill template/i});
+            if (await template.count()) { await template.click(); await page.waitForTimeout(500); }
 
-          const template = page.getByRole('button', {name:/skill template/i});
-          if (await template.count()) {
-            await template.click();
-            await page.waitForTimeout(500);
+            const controls = await page.locator('input,textarea,select,button').evaluateAll(els => els.map((e,i) => ({i,tag:e.tagName,text:(e.textContent||'').trim(),ph:e.getAttribute('placeholder'),type:e.getAttribute('type'),value:e.value,disabled:e.disabled,name:e.getAttribute('name')})));
+            console.log('CONTROLS_JSON', JSON.stringify(controls));
+
+            const name = page.locator('input[placeholder*="GPT-4 Code Review"]');
+            if (await name.count()) await name.first().fill(process.env.PRODUCT_NAME);
+            else if (await page.locator('input[type="text"]').count()) await page.locator('input[type="text"]').first().fill(process.env.PRODUCT_NAME);
+
+            const ta = page.locator('textarea');
+            if (await ta.count()) await ta.first().fill(process.env.PRODUCT_DESCRIPTION);
+
+            const price = page.locator('input[placeholder="0.05"], input[type="number"]');
+            if (await price.count()) await price.first().fill(process.env.PRODUCT_PRICE);
+
+            const nativeSelects = page.locator('select');
+            for (let i=0;i<await nativeSelects.count();i++) {
+              const s=nativeSelects.nth(i);
+              const opts=await s.locator('option').evaluateAll(os=>os.map(o=>({v:o.value,t:o.textContent||''})));
+              console.log('SELECT_OPTIONS',i,JSON.stringify(opts));
+              const choice=opts.find(o=>/skill/i.test(o.t)) || opts.find(o=>/trading|data|security|crypto/i.test(o.t)) || opts.find(o=>o.v);
+              if(choice?.v) await s.selectOption(choice.v);
+            }
+
+            const submit = page.getByRole('button', {name:/submit for review/i});
+            result.attempted = true;
+            console.log('SUBMIT_STATE', JSON.stringify({count:await submit.count(), disabled:await submit.isDisabled().catch(()=>null)}));
+            if (!await submit.count()) throw new Error('submit button not found');
+            if (await submit.isDisabled()) throw new Error('submit button disabled after fields filled');
+            await submit.click();
+            await page.waitForTimeout(5000);
+            const body=(await page.locator('body').innerText());
+            console.log('AFTER_BODY', body.slice(-6000));
+            result.submitted = /submitted|thank you|under review|success/i.test(body);
+          } catch (e) {
+            result.error = String(e?.stack || e);
+            console.log('ATTEMPT_ERROR', result.error);
+          } finally {
+            await page.screenshot({path:'agent-bazaar-submit.png', fullPage:true}).catch(()=>{});
+            const body=(await page.locator('body').innerText().catch(()=>''));
+            await import('node:fs').then(fs=>fs.writeFileSync('agent-bazaar-result.json', JSON.stringify({...result, finalUrl:page.url(), bodyTail:body.slice(-8000)}, null, 2)));
+            await browser.close();
           }
-
-          const nameInput = page.locator('input[placeholder*="GPT-4 Code Review"], input').first();
-          await nameInput.fill(process.env.PRODUCT_NAME);
-
-          const ta = page.locator('textarea');
-          if (await ta.count()) {
-            await ta.first().fill(process.env.PRODUCT_DESCRIPTION);
-          }
-
-          const price = page.locator('input[placeholder="0.05"]');
-          if (await price.count()) await price.first().fill(process.env.PRODUCT_PRICE);
-
-          console.log('controls', await page.locator('input,textarea,select,button').evaluateAll(els => els.map(e => ({tag:e.tagName,text:e.textContent,ph:e.getAttribute('placeholder'),value:e.value,disabled:e.disabled}))));
-
-          const submit = page.getByRole('button', {name:/submit for review/i});
-          console.log('submit_count', await submit.count(), 'disabled', await submit.isDisabled().catch(()=>null));
-          if (!await submit.count()) throw new Error('Submit button not found');
-          if (await submit.isDisabled()) throw new Error('Submit button remains disabled after template + required fields');
-          await submit.click();
-          await page.waitForTimeout(5000);
-          const body = await page.locator('body').innerText();
-          console.log('final_url', page.url());
-          console.log('after', body.slice(-5000));
-          await page.screenshot({path:'agent-bazaar-submit.png', fullPage:true});
-          if (!/submitted|review|success|thank/i.test(body)) {
-            console.log('No explicit success text found; submission result requires evidence review.');
-          }
-          await browser.close();
           JS
           node /tmp/submit.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: agent-bazaar-submit-evidence
-          path: agent-bazaar-submit.png
+          path: |
+            agent-bazaar-submit.png
+            agent-bazaar-result.json
