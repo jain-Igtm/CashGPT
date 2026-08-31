@@ -8,11 +8,17 @@ on:
 
 permissions:
   contents: read
+  models: read
 
 jobs:
   medium-create:
     runs-on: ubuntu-latest
     timeout-minutes: 25
+    env:
+      COPPERHEAD_BASE_URL: https://models.github.ai/inference
+      COPPERHEAD_API_KEY_ENV: GITHUB_TOKEN
+      COPPERHEAD_MODEL: compat:openai/gpt-4.1-mini
+      GITHUB_TOKEN: ${{ github.token }}
     steps:
       - name: Install KiCad and tools
         run: |
@@ -28,6 +34,33 @@ jobs:
           echo "HEAD=$(git rev-parse HEAD)"
           npm ci
           npm run build
+
+      - name: Probe GitHub Models compatibility without logging credentials
+        shell: bash
+        run: |
+          code=$(curl -sS -o /tmp/models.json -w '%{http_code}' \
+            -H "Authorization: Bearer $GITHUB_TOKEN" \
+            -H 'Content-Type: application/json' \
+            https://models.github.ai/inference/chat/completions \
+            -d '{"model":"openai/gpt-4.1-mini","messages":[{"role":"user","content":"Reply exactly OK"}],"max_tokens":4}')
+          echo "github_models_http=$code"
+          if [ "$code" != "200" ]; then
+            python - <<'PY'
+import json
+p='/tmp/models.json'
+try:
+    d=json.load(open(p))
+    print({'error': d.get('error', d)})
+except Exception:
+    print('non-json response')
+PY
+            exit 1
+          fi
+          python - <<'PY'
+import json
+j=json.load(open('/tmp/models.json'))
+print('github_models_reply=', j.get('choices',[{}])[0].get('message',{}).get('content','')[:80])
+PY
 
       - name: Initialize medium-run workspace
         run: |
@@ -74,6 +107,9 @@ jobs:
             copperhead-66-state.txt
             medium-run/.copperhead/
             medium-run/docs/
+            medium-run/hardware/
+            medium-run/outputs/
+            medium-run/firmware/
           if-no-files-found: warn
 
       - name: Fail if create did not exit 0
