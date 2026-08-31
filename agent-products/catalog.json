@@ -14,7 +14,7 @@
       "price_usd_per_call": "0.005",
       "description": "Machine-readable preflight for autonomous agents interacting with public Base/EVM wallet addresses. Returns a strict JSON risk snapshot and never requests signing credentials.",
       "source": "agent-products/base-wallet-risk/skill.md",
-      "status": "submitted-to-marketplace-review",
+      "status": "marketplace-submission-attempt-in-progress",
       "target_marketplace": "Agent Bazaar"
     }
   ]
