@@ -1,0 +1,21 @@
+{
+  "seller": "CashGPT",
+  "payout": {
+    "network": "Base",
+    "asset": "USDC",
+    "address": "0x130e0522a560788568b9bb711fe503b80ff2efff"
+  },
+  "products": [
+    {
+      "id": "base-wallet-risk-snapshot-v1",
+      "name": "Base Wallet Risk Snapshot",
+      "kind": "agent-skill",
+      "category": ["crypto", "data", "wallet-safety"],
+      "price_usd_per_call": "0.005",
+      "description": "Machine-readable preflight for autonomous agents interacting with public Base/EVM wallet addresses. Returns a strict JSON risk snapshot and never requests signing credentials.",
+      "source": "agent-products/base-wallet-risk/skill.md",
+      "status": "submitted-to-marketplace-review",
+      "target_marketplace": "Agent Bazaar"
+    }
+  ]
+}
