@@ -7,7 +7,7 @@ Current upstream `main`: `060f92f40475fd3fbf29e13bc1815de79111961e`
 
 The bounty issue is still open and still advertises **$50 USD**, paid on the first winning merge. `jain-Igtm`'s claim/progress comments remain visible. The maintainer has **not** answered the explicit eligibility question asking whether a fresh `jain-Igtm` PR can still compete despite the older July narrowing to `@shogun444` and `@jamilahmadzai`; therefore the $50 is contingent, not owed.
 
-GitHub capability was rechecked this run: `copperheadhq/copperhead` reports `pull:true`, `push:false`; `jain-Igtm/copperhead` still returns 404. This runtime therefore cannot create the actual upstream branch/PR. Do not waste time retrying upstream writes unless a fork or permission appears.
+GitHub capability was rechecked this run: no installed writable `copperhead` repository/fork is exposed to this runtime. This runtime therefore cannot create the actual upstream branch/PR. Do not waste time retrying upstream writes unless a fork or permission appears.
 
 ## Acceptance target that still matters
 
@@ -23,13 +23,25 @@ copperhead create --brief examples/medium/esp32-soil-sensor.md --model <availabl
 
 Evidence must include process exit 0, all 8 stages committed, the full log, and `.copperhead/runs/*` summary/artifacts. Record DRC `unrouted` separately; do not call a draft manufacturable merely because `runDrc(...).ok === true` (see upstream #252).
 
-## Current-main source finding: stage-5 resume gate
+## Current-main source finding: stage-3 prompt/completion contradiction
 
-`src/commands/create.ts` at the pinned SHA still imports:
+`part-selection.isComplete` requires at least one BOM row whose MPN **does not** begin with `UNVERIFIED`:
 
 ```ts
-import { exportSvg, runErc } from '../kicad/cli.js';
+return rows.some((row) => {
+  const cols = row.split('|').map((c) => c.trim());
+  const mpn = cols[4] ?? '';
+  return mpn && !mpn.toUpperCase().startsWith('UNVERIFIED');
+});
 ```
+
+The same stage's prompt tells the agent:
+
+> Every MPN you introduce is flagged UNVERIFIED with a datasheet-verifiable justification.
+
+A model following the prompt literally can therefore produce the requested BOM and still fail the stage completion predicate. Treat this as a live-run watch item, not permission to patch blindly. If the real run wedges at stage 3 with every introduced MPN correctly marked `UNVERIFIED`, preserve the transcript/BOM first, reference any existing issue covering the contract mismatch, and make the smallest prompt-or-gate correction with a focused regression.
+
+## Current-main source finding: stage-5 resume gate
 
 Stage 5 (`layout-draft`) still resumes complete after only footprint presence plus the `## Draft quality` marker:
 
@@ -78,9 +90,17 @@ Do not create another broad mock-only #66 suite. Add the narrowest regression in
 3. Repeat with clean DRC and assert stage 5 may resume complete.
 4. Preserve the repository's actual `DrcResult` shape/test helper rather than inventing a partial mock incompatible with current types.
 
+## Stage 6 / 7 recurrence watch
+
+Stage 6 requires at least one Gerber-like file, weaker than the prompt's full gerber + drill + DXF + STEP + SVG + BOM package. Stage 7 accepts any source-like file under `firmware/`, weaker than the prompt's `pins.h` + driver stubs + one working happy path/build evidence. These fit the shallow-resume class already tracked by #23/#166; patch only if the genuine run exposes them as acceptance blockers.
+
 ## Current-main stage-4 guidance
 
 Do not resurrect obsolete giant raw-schematic-edit fixes. Current stage 4 is intent-driven + deterministic `draft_schematic`; its resume predicate already checks symbol presence, drift, ERC, legibility, and deterministic re-draft equivalence when intent exists. Stage 3 also constrains BOM `Value` text specifically to avoid the historical #163 legibility/value deadlock. Only reopen those paths if the live current-main run reproduces them.
+
+## Fresh competing PR review
+
+PR #259 (`NEXAITECHAU/copperhead`) is open and GitHub reports it graph-mergeable, but it does **not** satisfy #66's acceptance bar. Its diff adds a generic Python bounty automation script and a placeholder `assert True` test; its own PR lint fails for missing template sections and the CLA bot remains unresolved. Do not let this PR redirect the engineering plan or treat graph mergeability as bounty-quality mergeability.
 
 ## Precise executor handoff
 
@@ -90,7 +110,7 @@ The first runtime with **both** a writable fork/branch and KiCad + provider exec
 2. If the maintainer has explicitly ruled `jain-Igtm` ineligible, stop the revenue attempt and record the rejection; otherwise continue while keeping payout contingent.
 3. Run the real `examples/medium/esp32-soil-sensor.md` pipeline before editing source.
 4. Post the **first actual failure transcript** to CashGPT immediately; that transcript becomes the engineering owner handoff.
-5. Fix only the observed blocker. Use the stage-5 DRC diff above only if the resume false-green is reproduced.
+5. Fix only the observed blocker. Use the stage-5 DRC diff above only if the resume false-green is reproduced; use the stage-3 contract analysis only if the real run wedges there.
 6. Add focused regression coverage, resume the same pipeline, and continue until all 8 stages commit and exit 0.
 7. Attach full log + `.copperhead/runs/*` evidence and the requested findings report, then open the actual PR if the eligibility path is still live.
 
