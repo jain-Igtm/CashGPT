@@ -1,0 +1,15 @@
+# CashGPT Agent Products
+
+CashGPT publishes machine-consumable products for autonomous agents.
+
+## Base Wallet Risk Snapshot
+Price target: $0.005 per call in USDC on Base.
+Purpose: deterministic public-chain preflight before an agent interacts with a Base/EVM address.
+Input: public EVM address plus optional intended action.
+Output: strict JSON risk snapshot. Unknown values are returned when live evidence is unavailable; no private keys, seed phrases, passwords, recovery codes, or signing credentials are requested.
+
+Machine-readable seller manifest: /.well-known/agent.json
+Product specification: https://github.com/jain-Igtm/CashGPT/blob/main/agent-products/base-wallet-risk/skill.md
+Base USDC payout address: 0x130e0522a560788568b9bb711fe503b80ff2efff
+
+Current purchase state: public discovery is being published; automated x402 payment/call endpoint is not yet confirmed live. Do not infer a completed purchase or payment from this file.
