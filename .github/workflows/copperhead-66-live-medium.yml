@@ -12,20 +12,23 @@ permissions:
 jobs:
   medium-create:
     runs-on: ubuntu-latest
-    timeout-minutes: 35
+    timeout-minutes: 45
     env:
       COPPERHEAD_BASE_URL: http://127.0.0.1:11434/v1
       COPPERHEAD_API_KEY_ENV: COPPERHEAD_UNUSED_KEY
-      COPPERHEAD_MODEL: compat:qwen2.5-coder:3b
+      COPPERHEAD_MODEL: compat:qwen3:4b
     steps:
-      - name: Install KiCad, Ollama, and tools
+      - name: Install KiCad 8, Ollama, and tools
         run: |
           sudo apt-get update
-          sudo apt-get install -y kicad git curl
+          sudo apt-get install -y software-properties-common git curl
+          sudo add-apt-repository -y ppa:kicad/kicad-8.0-releases
+          sudo apt-get update
+          sudo apt-get install -y kicad
           curl -fsSL https://ollama.com/install.sh | sh
           nohup ollama serve >/tmp/ollama.log 2>&1 &
           for i in $(seq 1 30); do curl -fsS http://127.0.0.1:11434/api/tags >/dev/null && break; sleep 1; done
-          ollama pull qwen2.5-coder:3b
+          ollama pull qwen3:4b
           node --version
           kicad-cli version
           ollama list
@@ -38,12 +41,13 @@ jobs:
           npm ci
           npm run build
 
-      - name: Probe local OpenAI-compatible provider
+      - name: Probe local OpenAI-compatible provider with tool calling
         run: |
           curl -fsS http://127.0.0.1:11434/v1/chat/completions \
             -H 'Content-Type: application/json' \
-            -d '{"model":"qwen2.5-coder:3b","messages":[{"role":"user","content":"Reply exactly OK"}],"max_tokens":4}' \
-            | python -c "import json,sys; j=json.load(sys.stdin); print('ollama_reply=',j['choices'][0]['message']['content'][:80])"
+            -d '{"model":"qwen3:4b","messages":[{"role":"user","content":"Call the ping tool once."}],"tools":[{"type":"function","function":{"name":"ping","description":"test tool","parameters":{"type":"object","properties":{},"additionalProperties":false}}}],"tool_choice":"required","max_tokens":64}' \
+            | tee /tmp/tool-probe.json \
+            | python -c "import json,sys; j=json.load(sys.stdin); m=j['choices'][0]['message']; tc=m.get('tool_calls') or []; print('tool_calls=',len(tc)); assert tc and tc[0]['function']['name']=='ping'"
 
       - name: Initialize medium-run workspace
         run: |
@@ -72,14 +76,16 @@ jobs:
           {
             echo '=== CREATE STEP OUTCOME ==='
             echo '${{ steps.create.outcome }}'
+            echo '=== TOOL PROBE ==='
+            cat /tmp/tool-probe.json || true
             echo '=== TREE ==='
-            find medium-run -maxdepth 4 -type f -not -path '*/.git/*' -print | sort
+            find medium-run -maxdepth 5 -type f -not -path '*/.git/*' -print | sort
             echo '=== GIT STATUS ==='
             git -C medium-run status --short || true
             echo '=== GIT LOG ==='
             git -C medium-run log --oneline --decorate -20 || true
             echo '=== OLLAMA TAIL ==='
-            tail -80 /tmp/ollama.log || true
+            tail -100 /tmp/ollama.log || true
           } | tee copperhead-66-state.txt
 
       - name: Upload transcript and state
@@ -87,6 +93,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: copperhead-66-medium-live
+          include-hidden-files: true
           path: |
             copperhead-66-medium.log
             copperhead-66-state.txt
