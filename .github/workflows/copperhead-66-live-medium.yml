@@ -45,7 +45,7 @@ jobs:
         run: |
           curl -fsS http://127.0.0.1:11434/v1/chat/completions \
             -H 'Content-Type: application/json' \
-            -d '{"model":"qwen3:4b","messages":[{"role":"user","content":"Call the ping tool once."}],"tools":[{"type":"function","function":{"name":"ping","description":"test tool","parameters":{"type":"object","properties":{},"additionalProperties":false}}}],"tool_choice":"required","max_tokens":64}' \
+            -d '{"model":"qwen3:4b","messages":[{"role":"user","content":"/no_think Call the ping tool exactly once."}],"tools":[{"type":"function","function":{"name":"ping","description":"test tool","parameters":{"type":"object","properties":{},"additionalProperties":false}}}],"tool_choice":"required","max_tokens":512}' \
             | tee /tmp/tool-probe.json \
             | python -c "import json,sys; j=json.load(sys.stdin); m=j['choices'][0]['message']; tc=m.get('tool_calls') or []; print('tool_calls=',len(tc)); assert tc and tc[0]['function']['name']=='ping'"
 
