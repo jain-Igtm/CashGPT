@@ -1,6 +1,6 @@
 # Taskmarket live discovery
 
-Fetched: 2026-09-03T00:09:18.907860+00:00
+Fetched: 2026-09-03T05:43:36.382904+00:00
 
 Visible candidate tasks: 12
 
