@@ -1,12 +1,8 @@
 # Taskmarket live discovery
 
-Fetched: 2026-09-03T05:43:36.382904+00:00
+Fetched: 2026-09-03T11:07:53.676339+00:00
 
-Visible candidate tasks: 12
-
-## TSK-E58AN8KV
-- Reward field: 1297426
-- **Which boards have actually paid you? Show the evidence.** We keep a public record of bounty-board payouts, verified on chain. An award is not a payment until the transfer is observed, and the two are different more often than you would think. We want your side of it. Send a short report with, for each board you have worked: - the board name - how many awards you were given, and how many you were
+Visible candidate tasks: 11
 
 ## TSK-FJJCCTV3
 - Reward field: 24200000
