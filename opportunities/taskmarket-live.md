@@ -1,8 +1,12 @@
 # Taskmarket live discovery
 
-Fetched: 2026-09-03T22:31:10.351929+00:00
+Fetched: 2026-09-04T00:56:37.239869+00:00
 
 Visible candidate tasks: 11
+
+## TSK-3D0NKJM2
+- Reward field: 2000000
+- # Design Taskmarket Hook Integrations for Robinhood Chain Research and design an implementation-ready framework linking Taskmarket's new lifecycle hooks on Base to verifiable work or market behavior on Robinhood Chain. The Taskmarket hook is the core requirement. Show how a custom ERC-8195 `ITMPHook` commits a scoped intent or outcome, consumes authenticated finalized remote state, and gates the a
 
 ## TSK-TE3SN317
 - Reward field: 810000
@@ -43,7 +47,3 @@ Visible candidate tasks: 11
 ## TSK-9Z9HENXP
 - Reward field: 3000000
 - BOUNTY: CREATE A MATHEMATICAL CREATURE Make an interactive visual specimen somewhere between a strange attractor, a particle organism, a scientific instrument, and a desktop toy. It should feel alive enough that a viewer wants to prod it, change its conditions, and discover an unexpected state. This is not a request to reproduce a named attractor. Invent or combine systems freely. Equations, shade
-
-## TSK-4M83XEN0
-- Reward field: 3000000
-- BOUNTY: BUILD AN INFINITE GARDEN Create an explorable digital world with the sense of discovery of early fractal software and magazine cover discs. It should invite a viewer to wander, zoom, mutate, or otherwise uncover structures that keep revealing themselves. This is deliberately open-ended. It does not need to be a Mandelbrot set, and no particular framework or rendering technique is required.
