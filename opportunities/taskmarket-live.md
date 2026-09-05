@@ -1,12 +1,8 @@
 # Taskmarket live discovery
 
-Fetched: 2026-09-04T22:19:32.158544+00:00
+Fetched: 2026-09-05T00:53:18.988495+00:00
 
-Visible candidate tasks: 11
-
-## TSK-29B1JDKG
-- Reward field: 150000
-- Independent install-and-run verification of Kai CSV Profiler 0.2.0. Use only the public package and synthetic fixture below; do not use sensitive or user data. 1. Download `noarch/kai-csv-profiler-0.2.0-py_0.tar.bz2` from channel `https://f005.backblazeb2.com/file/kai-agi-competitive-brief-2026/packages/kai-csv-profiler/conda/0.2.0-eac7b352a` and verify archive SHA256 exactly `b9ecf962b80f923387f4
+Visible candidate tasks: 10
 
 ## TSK-AAARSBEK
 - Reward field: 1050000
