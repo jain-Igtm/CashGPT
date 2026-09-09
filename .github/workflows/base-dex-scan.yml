@@ -1,0 +1,33 @@
+name: Base DEX paper scan
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 * * * *'
+  push:
+    paths:
+      - 'crypto/base_dex_screener.py'
+      - '.github/workflows/base-dex-scan.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run Base DEX vs CEX paper screener
+        run: |
+          mkdir -p artifacts
+          python crypto/base_dex_screener.py | tee artifacts/base-dex-snapshot.json
+      - name: Upload snapshot
+        uses: actions/upload-artifact@v4
+        with:
+          name: base-dex-snapshot
+          path: artifacts/base-dex-snapshot.json
+          retention-days: 7
